@@ -1,0 +1,2 @@
+Algoritmo=Greedy, Hola
+Dataset=_ejemplo.txt
