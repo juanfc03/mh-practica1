@@ -26,7 +26,7 @@ public class Main {
     public static int[][][] leerDatosMatriz(String rutaFichero) throws IOException {
 
         BufferedReader br = new BufferedReader(new FileReader(rutaFichero));
-        int tam = Integer.parseInt(br.readLine());
+        int tam = Integer.parseInt(br.readLine().trim());
         br.readLine();
 
         int [][] F = new int[tam][tam];
