@@ -10,7 +10,6 @@ import java.util.Map;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-
     public static Map<String, String[]> leerParametrosArgs(String ruta) throws IOException {
 
         Map<String, String[]> parametros = new HashMap<>();
@@ -97,13 +96,12 @@ public class Main {
                                 throw new IllegalArgumentException("Valor de semilla vacío en parámetros");
                             }
                             long seed = Long.parseLong(sem);
-                            //TODO Implementar greedy aleatorio
-                            //int[] S = alg.resolver(F, D, seed);
+                            int[] S = alg.resolver(F, D, seed);
                             System.out.println("\n=== " + alg.nombreAlgoritmo()
                                     + " | dataset=" + ds + " | seed=" + seed + " ===");
 
-                            //imprimirSolucion(S);
-                            //System.out.println("Coste: " + alg.calcularCoste(datos.getMatriz1(), datos.getMatriz2(), S));
+                            imprimirSolucion(S);
+                            System.out.println("Coste: " + alg.calcularCoste(datos.getMatriz1(), datos.getMatriz2(), S));
 
                         }
 
