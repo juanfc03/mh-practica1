@@ -1,2 +1,3 @@
-Algoritmo=Greedy,       Hola
-Dataset=_ejemplo.txt
+Algoritmos=Greedy
+Dataset=_ejemplo.txt ford01.dat
+Semillas=12345 23451
