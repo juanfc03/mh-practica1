@@ -30,6 +30,18 @@ public class Main {
         return parametros;
     }
 
+    private static Algoritmo crearAlgoritmo(String nombreAlgoritmo) {
+
+        switch (nombreAlgoritmo.toUpperCase()) {
+
+            case "GREEDY": return new GreedyAlg();
+            //TODO Añadir los siguientes aquí...
+            default: throw new IllegalArgumentException("Algoritmo no registrado: " + nombreAlgoritmo);
+
+        }
+
+    }
+
     private static void imprimirSolucion(int[] S){
 
         System.out.println("Solución:");
@@ -54,8 +66,8 @@ public class Main {
             String ruta_base="src/main/resources/";
 
             System.out.println("Algoritmos: " + Arrays.toString(algoritmos));
-            System.out.println("Dataset: " + Arrays.toString(datasets));
-            System.out.println("Semillas: " + Arrays.toString(semillas));
+            System.out.println("Datasets: " + Arrays.toString(datasets));
+            if (semillas.length > 0) System.out.println("Semillas: " + Arrays.toString(semillas));
             System.out.println();
 
             for (String ds : datasets) {
@@ -73,14 +85,40 @@ public class Main {
                 System.out.println("Matriz de distancias (D):");
                 Archivos_datos.leerMatriz(D);
 
-                //HACK Solución temporal, luego habrá que recorrer varios algoritmos
-                Algoritmo greedy = new GreedyAlg();
-                int[] S = greedy.resolver(F, D);
-                imprimirSolucion(S);
+                for(String nombre_alg : algoritmos){
 
-                System.out.println("Coste: " + greedy.calcularCoste(datos.getMatriz1(), datos.getMatriz2(), S));
+                    Algoritmo alg = crearAlgoritmo(nombre_alg);
 
-                // TODO Implementar Greedy aleatorio
+                    if(semillas.length > 0){ //Si hay semillas, ejecutamos una por semilla
+
+                        for(String sem : semillas){
+
+                            if (sem == null || sem.isBlank()) {
+                                throw new IllegalArgumentException("Valor de semilla vacío en parámetros");
+                            }
+                            long seed = Long.parseLong(sem);
+                            //TODO Implementar greedy aleatorio
+                            //int[] S = alg.resolver(F, D, seed);
+                            System.out.println("\n=== " + alg.nombreAlgoritmo()
+                                    + " | dataset=" + ds + " | seed=" + seed + " ===");
+
+                            //imprimirSolucion(S);
+                            //System.out.println("Coste: " + alg.calcularCoste(datos.getMatriz1(), datos.getMatriz2(), S));
+
+                        }
+
+                    }else{
+
+                        int[] S = alg.resolver(F, D);
+                        System.out.println("\n=== " + alg.nombreAlgoritmo()
+                                + " | dataset=" + ds + " ===");
+
+                        imprimirSolucion(S);
+                        System.out.println("Coste: " + alg.calcularCoste(datos.getMatriz1(), datos.getMatriz2(), S));
+
+                    }
+
+                }
 
             }
 
