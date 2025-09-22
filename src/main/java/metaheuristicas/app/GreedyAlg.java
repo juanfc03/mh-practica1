@@ -7,7 +7,7 @@ public class GreedyAlg implements Algoritmo {
     @Override
     public String nombreAlgoritmo() { return "Greedy"; }
 
-    private int[] resolver_interno(int[][] matriz1, int[][] matriz2, Random rnd) {
+    private int[] resolver_interno(int[][] matriz1, int[][] matriz2, int[] seed_array, int k) {
 
         int tam = matriz1.length;
 
@@ -34,8 +34,13 @@ public class GreedyAlg implements Algoritmo {
         Arrays.sort(ordenLocalizaciones, Comparator.comparingInt(a -> centralidad[a]));
         //System.out.println(Arrays.toString(ordenLocalizaciones));
 
-        if(rnd !=null){
-
+        // TODO Seguir por aquí para el random, hacerlo con int[] y luego se cambia a arraylist
+        if (seed_array.length > 0) {
+            Random rand;
+            for (int seed = 0; seed < seed_array.length; seed++) {
+                rand = new Random(seed_array[seed]);
+                int pos = rand.nextInt(k - 1);
+            }
             for (int i = ordenLocalizaciones.length - 1; i > 0; i--) {
                 int j = rnd.nextInt(i + 1); // Número aleatorio entre 0 e i
                 // Intercambiamos ordenLocalizaciones[i] y ordenLocalizaciones[j]
@@ -48,8 +53,10 @@ public class GreedyAlg implements Algoritmo {
                 java.util.List<Integer> listaLocs = java.util.Arrays.asList(ordenLocalizaciones);
                 java.util.Collections.shuffle(listaLocs, rnd);
              */
-
         }
+
+
+
 
         // 4) Damos la solución, asignar el más importante a la localización más central
         int[] S = new int[tam];
@@ -76,7 +83,7 @@ public class GreedyAlg implements Algoritmo {
     @Override
     public int[] resolver(int[][] matriz1, int[][] matriz2) {
 
-        return resolver_interno(matriz1, matriz2, null);
+        return resolver_interno(matriz1, matriz2, null, 0);
 
     }
 
@@ -96,9 +103,9 @@ public class GreedyAlg implements Algoritmo {
      * @return Array con la permutación de asignaciones inicial.
      */
     @Override
-    public int[] resolver(int[][] matriz1, int[][] matriz2, Long semilla){
+    public int[] resolver(int[][] matriz1, int[][] matriz2, Long semilla, int k){
 
-        return resolver_interno(matriz1,matriz2, new Random(semilla));
+        return resolver_interno(matriz1,matriz2, new Random(semilla), k);
 
     }
 

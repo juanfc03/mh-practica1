@@ -49,6 +49,14 @@ public class Main {
 
     }
 
+    private static int[] formatearSeeds(String[] seeds) {
+        int[] result = new int[seeds.length];
+        for (int i = 0; i < seeds.length; i++) {
+            result[i] = Integer.parseInt(seeds[i].trim());
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
 
         if (args.length < 1) {
@@ -62,12 +70,13 @@ public class Main {
             String[] algoritmos = params.get("Algoritmos");
             String[] datasets = params.get("Dataset");
             String[] semillas = params.getOrDefault("Semillas", new String[0]);
+            int K = Integer.parseInt(params.get("K")[0]);
             String ruta_base="src/main/resources/";
 
             System.out.println("Algoritmos: " + Arrays.toString(algoritmos));
             System.out.println("Datasets: " + Arrays.toString(datasets));
             if (semillas.length > 0) System.out.println("Semillas: " + Arrays.toString(semillas));
-            System.out.println();
+            System.out.println("K: " + K);
 
             for (String ds : datasets) {
 
@@ -96,7 +105,7 @@ public class Main {
                                 throw new IllegalArgumentException("Valor de semilla vacío en parámetros");
                             }
                             long seed = Long.parseLong(sem);
-                            int[] S = alg.resolver(F, D, seed);
+                            int[] S = alg.resolver(F, D, seed, K);
                             System.out.println("\n=== " + alg.nombreAlgoritmo()
                                     + " | dataset=" + ds + " | seed=" + seed + " ===");
 
