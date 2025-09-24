@@ -1,5 +1,7 @@
 package metaheuristicas.app.algoritmos;
 
+import metaheuristicas.app.utils.RemoveArrayElement;
+
 import java.util.*;
 
 public class Greedy implements Algoritmo {
@@ -75,39 +77,71 @@ public class Greedy implements Algoritmo {
         return solucion;
     }
 
+    /**
+     *
+     * @param matriz1 matriz de flujos
+     * @param matriz2 matriz de distancias
+     * @param semilla
+     * @param k
+     * @return
+     */
     private int[] resolver_interno(int[][] matriz1, int[][] matriz2, long semilla, int k) {
+        int tamSol = 0;
+        int posFlujo = 0;
+        int posLocalizacion = 0;
+        int tam = matriz1.length;
+        int unidad_elegida;
+        int localizacion_elegida;
+        int[] importancia = new int[tam];
+        int[] centralidad = new int[tam];
+        int[] solucion  = new int[tam];
+        Integer[] departamentos;
+        Integer[] localizaciones;
+        Random rand = new Random(semilla);
 
         // 1,2) Calcular importancia y centralidad
-        int tam = matriz1.length;
-
-        int[] importancia  = new int[tam];
-        int[] centralidad = new int[tam];
 
         calculosImportanciaCentralidad(matriz1, matriz2, tam, importancia, centralidad);
 
         // 3) Ordenar departamentos y localizaciones
-        Integer[] departamentos = ordenarDepartamentos(importancia);
-        Integer[] localizaciones = ordenarLocalizaciones(centralidad);
+        departamentos = ordenarDepartamentos(importancia);
+        localizaciones = ordenarLocalizaciones(centralidad);
 
-        // TODO Seguir por aquí para el random, hacerlo con int[] y luego se cambia a arraylist
+        // TODO Falta coger los 5 mejores de cada array e ir eliminando de los arrays los elementos ya cogidos
 
-            Random rand;
+        while (tamSol < tam) {
+            posFlujo = rand.nextInt(k - 1);
+            posLocalizacion = rand.nextInt(k - 1);
 
-            rand = new Random(semilla);
-            int pos = rand.nextInt(k - 1);
+            if (departamentos.length < k) {
+                posFlujo = rand.nextInt(k - departamentos.length - 1);
+                posLocalizacion = rand.nextInt(k - departamentos.length - 1);
+            }
 
-//        for (int i = localizaciones.length - 1; i > 0; i--) {
-//            int j = rand.nextInt(i + 1); // Número aleatorio entre 0 e i
-//            // Intercambiamos ordenLocalizaciones[i] y ordenLocalizaciones[j]
-//            int tmp = localizaciones[i];
-//            localizaciones[i] = localizaciones[j];
-//            localizaciones[j] = tmp;
-//        }
+            unidad_elegida = departamentos[posFlujo];
+            localizacion_elegida = localizaciones[posLocalizacion];
 
-            /* También se puede hacer así:
+            RemoveArrayElement.removeElement(departamentos, posFlujo);
+            RemoveArrayElement.removeElement(localizaciones, posLocalizacion);
+
+            solucion[unidad_elegida] = localizaciones[localizacion_elegida];
+            tamSol++;
+
+        }
+
+        /*
+            for (int i = localizaciones.length - 1; i > 0; i--) {
+                int j = rand.nextInt(i + 1); // Número aleatorio entre 0 e i
+                // Intercambiamos ordenLocalizaciones[i] y ordenLocalizaciones[j]
+                int tmp = localizaciones[i];
+                localizaciones[i] = localizaciones[j];
+                localizaciones[j] = tmp;
+            }
+
+             // También se puede hacer así:
                 java.util.List<Integer> listaLocs = java.util.Arrays.asList(ordenLocalizaciones);
                 java.util.Collections.shuffle(listaLocs, rnd);
-             */
+         */
 
         // 4) Solución
         return asignarSolucion(tam, departamentos, localizaciones);
