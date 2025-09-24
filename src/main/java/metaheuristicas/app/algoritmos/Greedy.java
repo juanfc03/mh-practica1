@@ -107,7 +107,8 @@ public class Greedy implements Algoritmo {
         departamentos = ordenarDepartamentos(importancia);
         localizaciones = ordenarLocalizaciones(centralidad);
 
-        // TODO Falta coger los 5 mejores de cada array e ir eliminando de los arrays los elementos ya cogidos
+        // NOTE No sé si hay que volver a ordenar los vectores una vez eliminado el elemento, si no hay que hacer eso,
+        // ya está hecho el algoritmo.
 
         while (tamSol < tam) {
             posFlujo = rand.nextInt(k - 1);
