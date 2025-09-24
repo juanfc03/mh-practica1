@@ -1,4 +1,4 @@
 Algoritmos=Greedy
-Dataset=_ejemplo.txt ford01.dat
-Semillas=12345 23451 34512 45123 51234
+Dataset=_ejemplo.txt ford01.dat ford02.dat ford03.dat ford04.dat
+Semillas=26583240 65832402 58324026 83240265 32402658
 K=5
