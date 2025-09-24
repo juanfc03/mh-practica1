@@ -1,13 +1,17 @@
 package metaheuristicas.app;
 
+import metaheuristicas.app.algoritmos.Algoritmo;
+import metaheuristicas.app.algoritmos.AlgoritmoFactory;
+import metaheuristicas.app.utils.LeerMatriz;
+import metaheuristicas.app.utils.Parser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
 
     public static Map<String, String[]> leerParametrosArgs(String ruta) throws IOException {
@@ -29,35 +33,47 @@ public class Main {
         return parametros;
     }
 
-    private static Algoritmo crearAlgoritmo(String nombreAlgoritmo) {
-
-        switch (nombreAlgoritmo.toUpperCase()) {
-
-            case "GREEDY": return new GreedyAlg();
-            //TODO Añadir los siguientes aquí...
-            default: throw new IllegalArgumentException("Algoritmo no registrado: " + nombreAlgoritmo);
-
-        }
-
+    private static String[] cargar(Map<String,String[]> parametros, String nombreParametro) {
+        return parametros.get(nombreParametro);
     }
 
-    private static void imprimirSolucion(int[] S){
-
-        System.out.println("Solución:");
-        for (int i = 0; i < S.length; i++)
-            System.out.println("Departamento " + (i + 1) + " -> Localización " + S[i]);
-
+    private static void mostrarDatosCargados(String[] algoritmos, String[] datasets, String[] semillas, int k) {
+        System.out.println("Algoritmos: " + Arrays.toString(algoritmos));
+        System.out.println("Datasets: " + Arrays.toString(datasets));
+        System.out.println("Semillas: " + Arrays.toString(semillas));
+        System.out.println("K: " + k);
     }
 
-    private static int[] formatearSeeds(String[] seeds) {
-        int[] result = new int[seeds.length];
-        for (int i = 0; i < seeds.length; i++) {
-            result[i] = Integer.parseInt(seeds[i].trim());
+    private static int[] formatearSeeds(String[] semillas) {
+        int[] result = new int[semillas.length];
+        for (int i = 0; i < semillas.length; i++) {
+            result[i] = Parser.toInt(semillas[i].trim());
         }
         return result;
     }
 
+    private static void imprimirSolucion(int[] solucion, Algoritmo algoritmo, String dataset, String[] semillas,
+                                         int[][] flujos, int[][] distancias){
+        System.out.println("\n=== " + algoritmo.nombreAlgoritmo()
+                + " | dataset=" + dataset);
+
+        System.out.println("Solución:");
+
+        for (int i = 0; i < solucion.length; i++)
+            System.out.println("Departamento " + (i + 1) + " -> Localización " + solucion[i]);
+
+        System.out.println("Semillas: " + Arrays.toString(semillas));
+
+        //System.out.println("Coste: " + algoritmo_actual.calcularCoste(datos.getFlujos(), datos.getDistancias(), solucion));
+        System.out.println("Coste: " + algoritmo.calcularCoste(flujos, distancias, solucion));
+
+    }
+
     public static void main(String[] args) {
+
+        // Poner en cmd.exe java -cp target/classes metaheuristicas.app.Main src/main/resources/parametros.txt
+
+        String ruta_base="src/main/resources/";
 
         if (args.length < 1) {
             System.err.println("Debes pasar la ruta del fichero de parámetros como argumento.");
@@ -65,71 +81,58 @@ public class Main {
         }
 
         try {
-            // Poner en cmd.exe java -cp target/classes metaheuristicas.app.Main src/main/resources/parametros.txt
-            Map<String, String[]> params = leerParametrosArgs(args[0]);
-            String[] algoritmos = params.get("Algoritmos");
-            String[] datasets = params.get("Dataset");
-            String[] semillas = params.getOrDefault("Semillas", new String[0]);
-            int K = Integer.parseInt(params.get("K")[0]);
-            String ruta_base="src/main/resources/";
 
-            System.out.println("Algoritmos: " + Arrays.toString(algoritmos));
-            System.out.println("Datasets: " + Arrays.toString(datasets));
-            if (semillas.length > 0) System.out.println("Semillas: " + Arrays.toString(semillas));
-            System.out.println("K: " + K);
+            Map<String, String[]> parametros = leerParametrosArgs(args[0]);
 
-            for (String ds : datasets) {
+            String[] algoritmos = cargar(parametros, "Algoritmos");
+            String[] datasets = cargar(parametros, "Dataset");
+            String[] semillas = parametros.getOrDefault("Semillas", new String[0]);
+            int k = Parser.toInt(cargar(parametros, "K")[0]);
+
+            mostrarDatosCargados(algoritmos, datasets, semillas, k);
+
+            for (String dataset : datasets) {
 
                 System.out.println("\n############################");
-                System.out.println("## DATASET: " + ds);
+                System.out.println("## DATASET: " + dataset);
                 System.out.println("############################");
 
-                Archivos_datos datos = new Archivos_datos(ruta_base + ds);
-                int[][] F = datos.getMatriz1();
-                int[][] D = datos.getMatriz2();
+                Archivos_datos datos = new Archivos_datos(ruta_base + dataset);
+                int[][] flujos = datos.getFlujos();
+                int[][] distancias = datos.getDistancias();
 
                 System.out.println("Matriz de flujo (F):");
-                Archivos_datos.leerMatriz(F);
+                LeerMatriz.leer(flujos);
                 System.out.println("Matriz de distancias (D):");
-                Archivos_datos.leerMatriz(D);
+                LeerMatriz.leer(distancias);
 
-                for(String nombre_alg : algoritmos){
+                for(String algoritmo : algoritmos){
 
-                    Algoritmo alg = crearAlgoritmo(nombre_alg);
+                    Algoritmo algoritmo_actual = AlgoritmoFactory.nuevoAlgoritmo(algoritmo);
 
-                    if(semillas.length > 0){ //Si hay semillas, ejecutamos una por semilla
+                    if(semillas.length == 0) { //Si hay semillas, ejecutamos una por semilla
 
-                        for(String sem : semillas){
+                        int[] solucion = algoritmo_actual.resolver(flujos, distancias);
+                        imprimirSolucion(solucion, algoritmo_actual, dataset, semillas, flujos, distancias);
 
-                            if (sem == null || sem.isBlank()) {
+                    } else {
+
+                        for(String semilla : semillas){
+
+                            if (semilla == null || semilla.isBlank()) {
                                 throw new IllegalArgumentException("Valor de semilla vacío en parámetros");
                             }
-                            long seed = Long.parseLong(sem);
-                            int[] S = alg.resolver(F, D, seed, K);
-                            System.out.println("\n=== " + alg.nombreAlgoritmo()
-                                    + " | dataset=" + ds + " | seed=" + seed + " ===");
 
-                            imprimirSolucion(S);
-                            System.out.println("Coste: " + alg.calcularCoste(datos.getMatriz1(), datos.getMatriz2(), S));
+                            long seed = Parser.toLong(semilla);
 
+                            int[] solucion = algoritmo_actual.resolver(flujos, distancias, seed, k);
+
+                            imprimirSolucion(solucion, algoritmo_actual, dataset, semillas, flujos, distancias);
+                            System.out.println("Seed=" + semilla + " ===");
                         }
-
-                    }else{
-
-                        int[] S = alg.resolver(F, D);
-                        System.out.println("\n=== " + alg.nombreAlgoritmo()
-                                + " | dataset=" + ds + " ===");
-
-                        imprimirSolucion(S);
-                        System.out.println("Coste: " + alg.calcularCoste(datos.getMatriz1(), datos.getMatriz2(), S));
-
                     }
-
                 }
-
             }
-
-
         } catch (Exception ex) {
             System.err.println("Ha ocurrido un error: " + ex.getMessage());
         }

@@ -1,4 +1,4 @@
-package metaheuristicas.app;
+package metaheuristicas.app.algoritmos;
 
 public interface Algoritmo {
 
