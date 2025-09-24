@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class Main {
 
-    public static Map<String, String[]> leerParametrosArgs(String ruta) throws IOException {
+    private static Map<String, String[]> leerParametrosArgs(String ruta) throws IOException {
 
         Map<String, String[]> parametros = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader(ruta));
@@ -65,7 +65,7 @@ public class Main {
         for (int i = 0; i < solucion.length; i++)
             System.out.println("Departamento " + (i + 1) + " -> Localización " + solucion[i]);
 
-        System.out.println("Semillas: " + Arrays.toString(semillas));
+        //System.out.println("Semillas: " + Arrays.toString(semillas));
 
         //System.out.println("Coste: " + algoritmo_actual.calcularCoste(datos.getFlujos(), datos.getDistancias(), solucion));
         System.out.println("Coste: " + algoritmo.calcularCoste(flujos, distancias, solucion));
@@ -107,14 +107,9 @@ public class Main {
 
                     Algoritmo algoritmo_actual = AlgoritmoFactory.nuevoAlgoritmo(algoritmo);
 
-                    if(semillas.length == 0) { //Si hay semillas, ejecutamos una por semilla
+                    if(algoritmo_actual.usaSemilla() && semillas.length > 0) {
 
-                        int[] solucion = algoritmo_actual.resolver(flujos, distancias);
-                        imprimirSolucion(solucion, algoritmo_actual, dataset, semillas, flujos, distancias);
-
-                    } else {
-
-                        for(String semilla : semillas){
+                        for(String semilla : semillas){ //Si hay semillas, ejecutamos una por semilla
 
                             if (semilla == null || semilla.isBlank()) {
                                 throw new IllegalArgumentException("Valor de semilla vacío en parámetros");
@@ -122,11 +117,19 @@ public class Main {
 
                             long seed = Parser.toLong(semilla);
 
-                            int[] solucion = algoritmo_actual.resolver(flujos, distancias, seed, k);
+                            int[] solucion = algoritmo_actual.resolver(flujos, distancias, seed, algoritmo_actual.usaK() ? k : 0);
 
                             imprimirSolucion(solucion, algoritmo_actual, dataset, semillas, flujos, distancias);
                             System.out.println("Seed=" + semilla + " ===");
                         }
+
+
+
+                    } else {
+
+                        int[] solucion = algoritmo_actual.resolver(flujos, distancias,null, algoritmo_actual.usaK() ? k : 0);
+                        imprimirSolucion(solucion, algoritmo_actual, dataset, semillas, flujos, distancias);
+
                     }
                 }
             }

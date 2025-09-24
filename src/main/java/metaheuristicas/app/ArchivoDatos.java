@@ -19,7 +19,6 @@ public class ArchivoDatos {
 
     private void leerDatosMatriz(String rutaFichero) throws IOException {
 
-
         try (BufferedReader br = new BufferedReader(new FileReader(rutaFichero))) {
 
             int tam = Integer.parseInt(br.readLine().trim());

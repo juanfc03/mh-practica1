@@ -1,25 +1,34 @@
 package metaheuristicas.app.algoritmos;
 
-import metaheuristicas.app.utils.RemoveArrayElement;
-
 import java.util.*;
 
-public class Greedy implements Algoritmo {
+public class Greedy implements Algoritmo{
 
     @Override
     public String nombreAlgoritmo() { return "Greedy"; }
 
-
     /**
-     * Calcula la importancia de cada departamento y la centralidad de cada localización
-     * @param matriz1
-     * @param matriz2
-     * @param tam
-     * @param importancia
-     * @param centralidad
+     * @brief Heurística Greedy para el Quadratic Assignment Problem (QAP).
+     *
+     * Esta función genera una solución asignando
+     * departamentos a localizaciones de manera intuitiva:
+     * 1) Calcula la "importancia" de cada departamento como la suma de su flujo hacia los demás.
+     * 2) Calcula la "centralidad" de cada localización como la suma de sus distancias hacia todas las demás.
+     * 3) Ordena los departamentos de mayor a menor importancia y las localizaciones de menor a mayor centralidad.
+     * 4) Asigna el departamento más importante a la localización más central, el siguiente al segundo, etc.
+     *
+     * @param matriz1 Matriz de flujo entre departamentos (f_ij).
+     * @param matriz2 Matriz de distancias entre localizaciones (d_kl).
+     * @return Array con la permutación de asignaciones inicial.
      */
-    private void calculosImportanciaCentralidad(int[][] matriz1, int[][] matriz2, int tam, int[] importancia, int[] centralidad) {
+    @Override
+    public int[] resolver(int[][] matriz1, int[][] matriz2, Long semilla, int k) {
 
+        int tam = matriz1.length;
+
+        // 1) y 2) Calculamos la importancia de cada departamento y centralidad de cada localización
+        int[] importancia = new int[tam];
+        int[] centralidad = new int[tam];
         for(int i = 0; i < tam; i++)
             for(int j = 0; j < tam; j++){
 
@@ -27,170 +36,30 @@ public class Greedy implements Algoritmo {
                 centralidad[i] += matriz2[i][j];
 
             }
+
+        // 3) Ordenar los departamentos de mayor a menor importancia
+        // y las localizaciones de menor a mayor centralidad
+        Integer[] ordenDepartamentos = new Integer[tam];
+        for (int i = 0; i < tam; i++) ordenDepartamentos[i] = i;
+        Arrays.sort(ordenDepartamentos, (a, b) -> Integer.compare(importancia[b], importancia[a]));
+        //System.out.println(Arrays.toString(ordenDepartamentos));
+
+        Integer[] ordenLocalizaciones = new Integer[tam];
+        for (int i = 0; i < tam; i++) ordenLocalizaciones[i] = i;
+        Arrays.sort(ordenLocalizaciones, Comparator.comparingInt(a -> centralidad[a]));
+        //System.out.println(Arrays.toString(ordenLocalizaciones));
+
+        // 4) Damos la solución, asignar el más importante a la localización más central
+        int[] S = new int[tam];
+        for (int i = 0; i < tam; i++) S[ordenDepartamentos[i]] = ordenLocalizaciones[i] + 1;
+
+        return S;
+
     }
 
     /**
-     * Ordena los departamentos por importancia de mayor a menor
-     * @param importancia array de importancia para ordenar los departamentos
-     * @return devuelve el vector de departamentos ordenados
-     */
-    private Integer[] ordenarDepartamentos(int[] importancia) {
-        Integer[] ordenados = new Integer[importancia.length];
-
-        for (int i = 0; i < ordenados.length; i++)
-            ordenados[i] = i;
-
-        Arrays.sort(ordenados, (a, b) -> Integer.compare(importancia[b], importancia[a]));
-
-        return ordenados;
-    }
-
-    /**
-     * Ordena las localizaciones de menor a mayor centralidad
-     * @param centralidad array de centralidad para ordenar las localizaciones
-     * @return devuelve el vector de localizaciones ordenadas
-     */
-    private Integer[] ordenarLocalizaciones(int[] centralidad) {
-        Integer[] ordenados = new Integer[centralidad.length];
-
-        for (int i = 0; i < ordenados.length; i++)
-            ordenados[i] = i;
-
-        Arrays.sort(ordenados, Comparator.comparingInt(a -> centralidad[a]));
-
-        return ordenados;
-    }
-
-    /**
-     * Da la solución del algoritmo al problema, asignando el más importante a la localización más central
-     * @param tam
-     * @param departamentos
-     * @param localizaciones
-     * @return
-     */
-    private int[] asignarSolucion(int tam, Integer[] departamentos, Integer[] localizaciones) {
-        int[] solucion = new int[tam];
-
-        for (int i = 0; i < tam; i++)
-            solucion[departamentos[i]] = localizaciones[i] + 1;
-
-        return solucion;
-    }
-
-    /**
+     * @brief Calcula el coste total de una asignación de departamentos a localizaciones.
      *
-     * @param matriz1 matriz de flujos
-     * @param matriz2 matriz de distancias
-     * @param semilla
-     * @param k
-     * @return
-     */
-    private int[] resolver_interno(int[][] matriz1, int[][] matriz2, long semilla, int k) {
-        int tamSol = 0;
-        int posFlujo = 0;
-        int posLocalizacion = 0;
-        int tam = matriz1.length;
-        int unidad_elegida;
-        int localizacion_elegida;
-        int[] importancia = new int[tam];
-        int[] centralidad = new int[tam];
-        int[] solucion  = new int[tam];
-        Integer[] departamentos;
-        Integer[] localizaciones;
-        Random rand = new Random(semilla);
-
-        // 1,2) Calcular importancia y centralidad
-
-        calculosImportanciaCentralidad(matriz1, matriz2, tam, importancia, centralidad);
-
-        // 3) Ordenar departamentos y localizaciones
-        departamentos = ordenarDepartamentos(importancia);
-        localizaciones = ordenarLocalizaciones(centralidad);
-
-        // NOTE No sé si hay que volver a ordenar los vectores una vez eliminado el elemento, si no hay que hacer eso,
-        // ya está hecho el algoritmo.
-
-        while (tamSol < tam) {
-            posFlujo = rand.nextInt(k - 1);
-            posLocalizacion = rand.nextInt(k - 1);
-
-            if (departamentos.length < k) {
-                posFlujo = rand.nextInt(k - departamentos.length - 1);
-                posLocalizacion = rand.nextInt(k - departamentos.length - 1);
-            }
-
-            unidad_elegida = departamentos[posFlujo];
-            localizacion_elegida = localizaciones[posLocalizacion];
-
-            RemoveArrayElement.removeElement(departamentos, posFlujo);
-            RemoveArrayElement.removeElement(localizaciones, posLocalizacion);
-
-            solucion[unidad_elegida] = localizaciones[localizacion_elegida];
-            tamSol++;
-
-        }
-
-        /*
-            for (int i = localizaciones.length - 1; i > 0; i--) {
-                int j = rand.nextInt(i + 1); // Número aleatorio entre 0 e i
-                // Intercambiamos ordenLocalizaciones[i] y ordenLocalizaciones[j]
-                int tmp = localizaciones[i];
-                localizaciones[i] = localizaciones[j];
-                localizaciones[j] = tmp;
-            }
-
-             // También se puede hacer así:
-                java.util.List<Integer> listaLocs = java.util.Arrays.asList(ordenLocalizaciones);
-                java.util.Collections.shuffle(listaLocs, rnd);
-         */
-
-        // 4) Solución
-        return asignarSolucion(tam, departamentos, localizaciones);
-    }
-
-    /**
-     * Heurística Greedy para el Quadratic Assignment Problem (QAP).
-     * Esta función genera una solución asignando
-     * departamentos a localizaciones de manera intuitiva:
-     * 1) Calcula la "importancia" de cada departamento como la suma de su flujo hacia los demás.
-     * 2) Calcula la "centralidad" de cada localización como la suma de sus distancias hacia todas las demás.
-     * 3) Ordena los departamentos de mayor a menor importancia y las localizaciones de menor a mayor centralidad.
-     * 4) Asigna el departamento más importante a la localización más central, el siguiente al segundo, etc.
-     *
-     * @param matriz1 Matriz de flujo entre departamentos (f_ij).
-     * @param matriz2 Matriz de distancias entre localizaciones (d_kl).
-     * @return Array con la permutación de asignaciones inicial.
-     */
-    @Override
-    public int[] resolver(int[][] matriz1, int[][] matriz2) {
-
-        return resolver_interno(matriz1, matriz2, 0, 0);
-
-    }
-
-    /**
-     * Heurística Greedy aleatorizado para el Quadratic Assignment Problem (QAP).
-     * Esta función genera una solución asignando
-     * departamentos a localizaciones de manera intuitiva:
-     * 1) Calcula la "importancia" de cada departamento como la suma de su flujo hacia los demás.
-     * 2) Calcula la "centralidad" de cada localización como la suma de sus distancias hacia todas las demás.
-     * 3) Ordena los departamentos de mayor a menor importancia y las localizaciones de menor a mayor centralidad.
-     * 4) Asigna el departamento más importante a la localización más central, el siguiente al segundo, etc.
-     *
-     * @param matriz1 Matriz de flujo entre departamentos (f_ij).
-     * @param matriz2 Matriz de distancias entre localizaciones (d_kl).
-     * @param semilla Semilla para la aleatoriedad.
-     * @return Array con la permutación de asignaciones inicial.
-     */
-    @Override
-    public int[] resolver(int[][] matriz1, int[][] matriz2, Long semilla, int k){
-
-        return resolver_interno(matriz1,matriz2, semilla, k);
-
-    }
-
-    /**
-     * Calcula el coste total de una asignación de departamentos a localizaciones.
      * El coste se calcula como la suma de F[i][j] * D[S[i]-1][S[j]-1] para todos los pares (i,j).
      *
      * @param matriz1 Matriz de flujo entre departamentos.
@@ -210,4 +79,5 @@ public class Greedy implements Algoritmo {
         return coste;
 
     }
+
 }

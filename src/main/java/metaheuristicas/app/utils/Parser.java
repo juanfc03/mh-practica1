@@ -1,6 +1,7 @@
 package metaheuristicas.app.utils;
 
 public class Parser {
+
     public static int toInt(String cadena) {
         return Integer.parseInt(cadena);
     }
