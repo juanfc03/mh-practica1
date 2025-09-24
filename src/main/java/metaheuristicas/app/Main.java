@@ -44,14 +44,6 @@ public class Main {
         System.out.println("K: " + k);
     }
 
-    private static int[] formatearSeeds(String[] semillas) {
-        int[] result = new int[semillas.length];
-        for (int i = 0; i < semillas.length; i++) {
-            result[i] = Parser.toInt(semillas[i].trim());
-        }
-        return result;
-    }
-
     private static void imprimirSolucion(int[] solucion, Algoritmo algoritmo, String dataset, String[] semillas,
                                          int[][] flujos, int[][] distancias){
         System.out.println("\n=== " + algoritmo.nombreAlgoritmo()
