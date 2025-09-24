@@ -44,6 +44,17 @@ public class Main {
         System.out.println("K: " + k);
     }
 
+    private static void mostrarDataset(ArchivoDatos datos, String dataset) {
+        System.out.println("\n############################");
+        System.out.println("## DATASET: " + dataset);
+        System.out.println("############################");
+
+        System.out.println("Matriz de flujo (F):");
+        LeerMatriz.leer(datos.getFlujos());
+        System.out.println("Matriz de distancias (D):");
+        LeerMatriz.leer(datos.getDistancias());
+    }
+
     private static void imprimirSolucion(int[] solucion, Algoritmo algoritmo, String dataset, String[] semillas,
                                          int[][] flujos, int[][] distancias){
         System.out.println("\n=== " + algoritmo.nombreAlgoritmo()
@@ -85,18 +96,12 @@ public class Main {
 
             for (String dataset : datasets) {
 
-                System.out.println("\n############################");
-                System.out.println("## DATASET: " + dataset);
-                System.out.println("############################");
+                ArchivoDatos datos = new ArchivoDatos(ruta_base + dataset);
 
-                Archivos_datos datos = new Archivos_datos(ruta_base + dataset);
+                mostrarDataset(datos, dataset);
+
                 int[][] flujos = datos.getFlujos();
                 int[][] distancias = datos.getDistancias();
-
-                System.out.println("Matriz de flujo (F):");
-                LeerMatriz.leer(flujos);
-                System.out.println("Matriz de distancias (D):");
-                LeerMatriz.leer(distancias);
 
                 for(String algoritmo : algoritmos){
 

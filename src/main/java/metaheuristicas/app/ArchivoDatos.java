@@ -4,13 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Archivos_datos {
+public class ArchivoDatos {
 
     private final String nombre;
     private int[][] flujos;
     private int[][] distancias;
 
-    public Archivos_datos(String ruta_fichero) throws IOException {
+    public ArchivoDatos(String ruta_fichero) throws IOException {
 
         this.nombre = ruta_fichero;
         leerDatosMatriz(ruta_fichero);
