@@ -62,7 +62,7 @@ public class BusquedaLocal implements Algoritmo{
                 if (!mejoraI) dlb[i] = 1;
 
                 // Si mejora o agoto presupuesto, reinicia pasada o termina
-                if (mejoraI || iteraciones >= 5000) break;
+                if (mejoraI || iteraciones == 5000) break;
             }
         }
 
