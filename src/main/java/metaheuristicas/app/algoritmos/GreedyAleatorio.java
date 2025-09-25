@@ -9,14 +9,8 @@ public class GreedyAleatorio implements Algoritmo {
     @Override
     public String nombreAlgoritmo() { return "GreedyAleatorio"; }
 
-
     /**
-     * Calcula la importancia de cada departamento y la centralidad de cada localización
-     * @param matriz1
-     * @param matriz2
-     * @param tam
-     * @param importancia
-     * @param centralidad
+     * @brief Calcula la importancia de cada departamento y la centralidad de cada localización
      */
     private void calculosImportanciaCentralidad(int[][] matriz1, int[][] matriz2, int tam, int[] importancia, int[] centralidad) {
 
@@ -30,7 +24,7 @@ public class GreedyAleatorio implements Algoritmo {
     }
 
     /**
-     * Ordena los departamentos por importancia de mayor a menor
+     * @brief Ordena los departamentos por importancia de mayor a menor
      * @param importancia array de importancia para ordenar los departamentos
      * @return devuelve el vector de departamentos ordenados
      */
@@ -46,7 +40,7 @@ public class GreedyAleatorio implements Algoritmo {
     }
 
     /**
-     * Ordena las localizaciones de menor a mayor centralidad
+     * @brief Ordena las localizaciones de menor a mayor centralidad
      * @param centralidad array de centralidad para ordenar las localizaciones
      * @return devuelve el vector de localizaciones ordenadas
      */
@@ -62,7 +56,7 @@ public class GreedyAleatorio implements Algoritmo {
     }
 
     /**
-     * Heurística Greedy aleatorizado para el Quadratic Assignment Problem (QAP).
+     * @brief Heurística Greedy aleatorizado para el Quadratic Assignment Problem (QAP).
      * Esta función genera una solución asignando
      * departamentos a localizaciones de manera intuitiva:
      * 1) Calcula la "importancia" de cada departamento como la suma de su flujo hacia los demás.
@@ -73,6 +67,7 @@ public class GreedyAleatorio implements Algoritmo {
      * @param matriz1 Matriz de flujo entre departamentos (f_ij).
      * @param matriz2 Matriz de distancias entre localizaciones (d_kl).
      * @param semilla Semilla para la aleatoriedad.
+     * @param k Valor K variable.
      * @return Array con la permutación de asignaciones inicial.
      */
     @Override
@@ -91,6 +86,7 @@ public class GreedyAleatorio implements Algoritmo {
         Integer[] localizaciones = ordenarLocalizaciones(centralidad);
 
         // 4) Construcción aleatoria con RCL por tamaño K
+        //TODO Hay que revisar este algoritmo, funciona pero creo hace algo mal, luego te lo comento cuando me digas TJ
         for (int step = 0; step < tam; step++) {
             int boundDep = Math.min(k, departamentos.length);
             int boundLoc = Math.min(k, localizaciones.length);
@@ -113,30 +109,6 @@ public class GreedyAleatorio implements Algoritmo {
         }
 
         return solucion;
-    }
-
-
-
-    /**
-     * Calcula el coste total de una asignación de departamentos a localizaciones.
-     * El coste se calcula como la suma de F[i][j] * D[S[i]-1][S[j]-1] para todos los pares (i,j).
-     *
-     * @param matriz1 Matriz de flujo entre departamentos.
-     * @param matriz2 Matriz de distancias entre localizaciones.
-     * @param S Asignación de departamentos a localizaciones (1-based).
-     * @return Coste total de la asignación.
-     */
-    @Override
-    public int calcularCoste(int[][] matriz1, int[][] matriz2, int[] S) {
-
-        int coste=0;
-        int tam=matriz1.length;
-        for(int i = 0; i < tam; i++)
-            for(int j = 0; j < tam; j++)
-                coste+=matriz1[i][j] * matriz2[S[i]-1][S[j]-1];
-
-        return coste;
-
     }
 
     @Override

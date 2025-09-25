@@ -9,7 +9,6 @@ public class Greedy implements Algoritmo{
 
     /**
      * @brief Heurística Greedy para el Quadratic Assignment Problem (QAP).
-     *
      * Esta función genera una solución asignando
      * departamentos a localizaciones de manera intuitiva:
      * 1) Calcula la "importancia" de cada departamento como la suma de su flujo hacia los demás.
@@ -54,29 +53,6 @@ public class Greedy implements Algoritmo{
         for (int i = 0; i < tam; i++) S[ordenDepartamentos[i]] = ordenLocalizaciones[i] + 1;
 
         return S;
-
-    }
-
-    /**
-     * @brief Calcula el coste total de una asignación de departamentos a localizaciones.
-     *
-     * El coste se calcula como la suma de F[i][j] * D[S[i]-1][S[j]-1] para todos los pares (i,j).
-     *
-     * @param matriz1 Matriz de flujo entre departamentos.
-     * @param matriz2 Matriz de distancias entre localizaciones.
-     * @param S Asignación de departamentos a localizaciones (1-based).
-     * @return Coste total de la asignación.
-     */
-    @Override
-    public int calcularCoste(int[][] matriz1, int[][] matriz2, int[] S) {
-
-        int coste=0;
-        int tam=matriz1.length;
-        for(int i = 0; i < tam; i++)
-            for(int j = 0; j < tam; j++)
-                coste+=matriz1[i][j] * matriz2[S[i]-1][S[j]-1];
-
-        return coste;
 
     }
 

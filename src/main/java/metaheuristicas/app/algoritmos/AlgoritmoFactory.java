@@ -8,6 +8,7 @@ public interface AlgoritmoFactory {
         return switch (nombre.toUpperCase()) {
             case "GREEDY" -> new Greedy();
             case "GREEDYALEATORIO"  -> new GreedyAleatorio();
+            case "BUSQUEDALOCAL" -> new BusquedaLocal();
             default -> throw new IllegalArgumentException("Algoritmo no existe" + nombre);
         };
 

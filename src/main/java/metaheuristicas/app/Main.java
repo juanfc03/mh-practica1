@@ -55,7 +55,7 @@ public class Main {
         LeerMatriz.leer(datos.getDistancias());
     }
 
-    private static void imprimirSolucion(int[] solucion, Algoritmo algoritmo, String dataset, String[] semillas,
+    private static void imprimirSolucion(int[] solucion, Algoritmo algoritmo, String dataset,
                                          int[][] flujos, int[][] distancias){
         System.out.println("\n=== " + algoritmo.nombreAlgoritmo()
                 + " | dataset=" + dataset);
@@ -64,8 +64,6 @@ public class Main {
 
         for (int i = 0; i < solucion.length; i++)
             System.out.println("Departamento " + (i + 1) + " -> Localización " + solucion[i]);
-
-        //System.out.println("Semillas: " + Arrays.toString(semillas));
 
         //System.out.println("Coste: " + algoritmo_actual.calcularCoste(datos.getFlujos(), datos.getDistancias(), solucion));
         System.out.println("Coste: " + algoritmo.calcularCoste(flujos, distancias, solucion));
@@ -119,7 +117,7 @@ public class Main {
 
                             int[] solucion = algoritmo_actual.resolver(flujos, distancias, seed, algoritmo_actual.usaK() ? k : 0);
 
-                            imprimirSolucion(solucion, algoritmo_actual, dataset, semillas, flujos, distancias);
+                            imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias);
                             System.out.println("Seed=" + semilla + " ===");
                         }
 
@@ -128,7 +126,7 @@ public class Main {
                     } else {
 
                         int[] solucion = algoritmo_actual.resolver(flujos, distancias,null, algoritmo_actual.usaK() ? k : 0);
-                        imprimirSolucion(solucion, algoritmo_actual, dataset, semillas, flujos, distancias);
+                        imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias);
 
                     }
                 }
