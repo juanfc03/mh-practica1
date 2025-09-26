@@ -8,7 +8,7 @@ public class Greedy implements Algoritmo{
     public String nombreAlgoritmo() { return "Greedy"; }
 
     /**
-     * @brief Heurística Greedy para el Quadratic Assignment Problem (QAP).
+     * Heurística Greedy.
      * Esta función genera una solución asignando
      * departamentos a localizaciones de manera intuitiva:
      * 1) Calcula la "importancia" de cada departamento como la suma de su flujo hacia los demás.

@@ -1,6 +1,6 @@
 package metaheuristicas.app.algoritmos;
 
-import metaheuristicas.app.utils.RemoveArrayElement;
+import metaheuristicas.app.utils.Sorter;
 
 import java.util.*;
 
@@ -10,7 +10,7 @@ public class GreedyAleatorio implements Algoritmo {
     public String nombreAlgoritmo() { return "GreedyAleatorio"; }
 
     /**
-     * @brief Calcula la importancia de cada departamento y la centralidad de cada localización
+     * Calcula la importancia de cada departamento y la centralidad de cada localización
      */
     private void calculosImportanciaCentralidad(int[][] matriz1, int[][] matriz2, int tam, int[] importancia, int[] centralidad) {
 
@@ -24,45 +24,13 @@ public class GreedyAleatorio implements Algoritmo {
     }
 
     /**
-     * @brief Ordena los departamentos por importancia de mayor a menor
-     * @param importancia array de importancia para ordenar los departamentos
-     * @return devuelve el vector de departamentos ordenados
-     */
-    private Integer[] ordenarDepartamentos(int[] importancia) {
-        Integer[] ordenados = new Integer[importancia.length];
-
-        for (int i = 0; i < ordenados.length; i++)
-            ordenados[i] = i;
-
-        Arrays.sort(ordenados, (a, b) -> Integer.compare(importancia[b], importancia[a]));
-
-        return ordenados;
-    }
-
-    /**
-     * @brief Ordena las localizaciones de menor a mayor centralidad
-     * @param centralidad array de centralidad para ordenar las localizaciones
-     * @return devuelve el vector de localizaciones ordenadas
-     */
-    private Integer[] ordenarLocalizaciones(int[] centralidad) {
-        Integer[] ordenados = new Integer[centralidad.length];
-
-        for (int i = 0; i < ordenados.length; i++)
-            ordenados[i] = i;
-
-        Arrays.sort(ordenados, Comparator.comparingInt(a -> centralidad[a]));
-
-        return ordenados;
-    }
-
-    /**
-     * @brief Heurística Greedy aleatorizado para el Quadratic Assignment Problem (QAP).
+     * Heurística Greedy aleatorizado para el Quadratic Assignment Problem (QAP).
      * Esta función genera una solución asignando
      * departamentos a localizaciones de manera intuitiva:
      * 1) Calcula la "importancia" de cada departamento como la suma de su flujo hacia los demás.
      * 2) Calcula la "centralidad" de cada localización como la suma de sus distancias hacia todas las demás.
      * 3) Ordena los departamentos de mayor a menor importancia y las localizaciones de menor a mayor centralidad.
-     * 4) Asigna el departamento más importante a la localización más central, el siguiente al segundo, etc.
+     * 4) Asigna el departamento más importante a la localización más central, el siguiente al segundo, etc; de forma aleatoria.
      *
      * @param matriz1 Matriz de flujo entre departamentos (f_ij).
      * @param matriz2 Matriz de distancias entre localizaciones (d_kl).
@@ -77,35 +45,30 @@ public class GreedyAleatorio implements Algoritmo {
         int[] centralidad = new int[tam];
         int[] solucion = new int[tam];
         Random rand = new Random(semilla);
+        ArrayList<Integer> departamentos;
+        ArrayList<Integer> localizaciones;
 
-        // 1) y 2) Importancia / centralidad
         calculosImportanciaCentralidad(matriz1, matriz2, tam, importancia, centralidad);
 
-        // 3) Ordenaciones
-        Integer[] departamentos = ordenarDepartamentos(importancia);
-        Integer[] localizaciones = ordenarLocalizaciones(centralidad);
+        departamentos = Sorter.sortDesc(importancia);
+        localizaciones = Sorter.sortAsc(centralidad);
 
-        // 4) Construcción aleatoria con RCL por tamaño K
-        //TODO Hay que revisar este algoritmo, funciona pero creo hace algo mal, luego te lo comento cuando me digas TJ
-        for (int step = 0; step < tam; step++) {
-            int boundDep = Math.min(k, departamentos.length);
-            int boundLoc = Math.min(k, localizaciones.length);
+        for (int i = 0; i < tam; i++) {
+            int limiteDep = Math.min(k, departamentos.size());
+            int limiteLoc = Math.min(k, localizaciones.size());
 
-            if (boundDep <= 0 || boundLoc == 0) {
-                throw new IllegalStateException("No hay candidatos disponibles en el paso " + step);
-            }
+            if (limiteLoc == 0) break;  //sale del for para evitar coger posiciones que no existen de los arrays
 
-            int posDep = rand.nextInt(boundDep); // índice aleatorio entre los K mejores
-            int posLoc = rand.nextInt(boundLoc);
+            int posDep = rand.nextInt(limiteDep);
+            int posLoc = rand.nextInt(limiteLoc);
 
-            int dep = departamentos[posDep];
-            int loc = localizaciones[posLoc];
+            int departamento = departamentos.get(posDep);
+            int localizacion = localizaciones.get(posLoc);
 
-            solucion[dep] = loc + 1; // 1-based
+            solucion[departamento] = localizacion + 1;
 
-            // “Eliminar” los usados (crea un array nuevo con -1 tamaño)
-            departamentos = RemoveArrayElement.removeElement(departamentos, posDep);
-            localizaciones = RemoveArrayElement.removeElement(localizaciones, posLoc);
+            departamentos.remove(posDep);
+            localizaciones.remove(posLoc);
         }
 
         return solucion;

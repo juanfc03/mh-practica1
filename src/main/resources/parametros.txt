@@ -1,4 +1,4 @@
-Algoritmos=GreedyAleatorio BusquedaLocal
+Algoritmos=Greedy RandomGreedy BusquedaLocal
 Dataset=_ejemplo.txt
 Semillas=26583240 65832402 58324026 83240265 32402658
 K=5

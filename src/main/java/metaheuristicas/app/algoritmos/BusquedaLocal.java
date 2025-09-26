@@ -70,7 +70,8 @@ public class BusquedaLocal implements Algoritmo{
         return solucion;
     }
 
-    /**@brief
+    //TODO Esto puede ir en Utils, separado del código normal
+    /*
      * Intercambia las posiciones i y j en el array S (swap in-place).
      */
     private void intercambia(int[] S, int i, int j){
@@ -80,7 +81,7 @@ public class BusquedaLocal implements Algoritmo{
     }
 
     /**
-     * @brief Calcula el cambio en el coste (delta) al intercambiar i y j en la solución S.
+     * Calcula el cambio en el coste (delta) al intercambiar i y j en la solución S.
      * Complejidad: O(n).
      */
     // FIXME: revisar lógica, falta meterla en el resolver(), lo hacemos juntos cuando podamos

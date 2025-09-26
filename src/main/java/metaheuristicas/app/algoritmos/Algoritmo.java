@@ -7,7 +7,7 @@ public interface Algoritmo {
     int[] resolver(int[][] matriz1, int[][] matriz2, Long semilla, int k);
 
     /**
-     * @brief Calcula el coste total de una asignación de departamentos a localizaciones.
+     * Calcula el coste total de una asignación de departamentos a localizaciones.
      * El coste se calcula como la suma de F[i][j] * D[S[i]-1][S[j]-1] para todos los pares (i,j).
      *
      * @param matriz1 Matriz de flujo entre departamentos.
