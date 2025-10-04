@@ -55,5 +55,4 @@ public class Greedy implements Algoritmo{
         return S;
 
     }
-
 }

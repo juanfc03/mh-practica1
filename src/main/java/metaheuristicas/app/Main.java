@@ -38,6 +38,7 @@ public class Main {
     }
 
     private static void mostrarDatosCargados(String[] algoritmos, String[] datasets, String[] semillas, int k) {
+        System.out.println("DATOS CARGADOS");
         System.out.println("Algoritmos: " + Arrays.toString(algoritmos));
         System.out.println("Datasets: " + Arrays.toString(datasets));
         System.out.println("Semillas: " + Arrays.toString(semillas));
