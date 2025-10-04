@@ -13,7 +13,7 @@ public class BusquedaLocal implements Algoritmo{
         int[] solucion = ga.resolver(matriz1, matriz2, semilla, k);
 
         // 2) Coste inicial (ajusta el orden si tu firma difiere)
-        int costeActual = calcularCoste(matriz1, matriz2, solucion);
+        //int costeActual = calcularCoste(matriz1, matriz2, solucion);
 
         // 3) Estructuras BL
         int n = solucion.length;
@@ -33,15 +33,16 @@ public class BusquedaLocal implements Algoritmo{
 
                 for (int j = i + 1; j < n; j++) {
                     // Evaluar vecino (i, j): swap temporal
-                    intercambia(solucion, i, j);
+                    //intercambia(solucion, i, j);
+                    int delta = deltaSwap(matriz1, matriz2, solucion, i, j);
 
                     // Recalcular coste completo tras el swap
-                    int nuevoCoste = calcularCoste(matriz1, matriz2, solucion);
+                    //int nuevoCoste = calcularCoste(matriz1, matriz2, solucion);
                     iteraciones++; // hemos consumido una evaluación
-
-                    if (nuevoCoste < costeActual) {
+                    if (delta <0 ) {
                         // Aceptar PRIMERA mejora
-                        costeActual = nuevoCoste;
+                        intercambia(solucion, i, j);
+                        //costeActual +=delta;
                         dlb[i] = 0;
                         dlb[j] = 0;
                         hubo_mejora = true;
@@ -49,10 +50,10 @@ public class BusquedaLocal implements Algoritmo{
 
                         // Primer-mejor: mantener el swap y reiniciar desde i=0
                         break;
-                    } else {
+                    } //else {
                         // No mejora: revertir swap
-                        intercambia(solucion, i, j);
-                    }
+                      //  intercambia(solucion, i, j);
+                    //}
 
                     // Presupuesto agotado: sal de j; for i saldrá abajo
                     if (iteraciones >= 5000) break;
@@ -66,7 +67,6 @@ public class BusquedaLocal implements Algoritmo{
             }
         }
 
-        //TODO Mejorar la eficiencia del algoritmo usando deltaSwap tal y como dice el guión de prácticas
         return solucion;
     }
 
@@ -84,20 +84,20 @@ public class BusquedaLocal implements Algoritmo{
      * Calcula el cambio en el coste (delta) al intercambiar i y j en la solución S.
      * Complejidad: O(n).
      */
-    // FIXME: revisar lógica, falta meterla en el resolver(), lo hacemos juntos cuando podamos
+    // FIXME: revisar lógica
     private int deltaSwap(int[][] F, int[][] D, int[] S, int i, int j) {
         if (i == j) return 0;
 
         int n = S.length;
-        int pi = S[i]; // localización actual de i
-        int pj = S[j]; // localización actual de j
+        int pi = S[i] -1; // localización actual de i
+        int pj = S[j] -1; // localización actual de j
 
         int delta = 0;
 
         // Contribuciones con todos los demás k distintos de i y j
         for (int k = 0; k < n; k++) {
             if (k == i || k == j) continue;
-            int pk = S[k];
+            int pk = S[k] -1;
 
             // Cambios en flujos salientes de i y j
             delta += F[i][k] * (D[pj][pk] - D[pi][pk]);
