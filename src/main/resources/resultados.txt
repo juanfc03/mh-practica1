@@ -1,0 +1,220 @@
+Nombre del Algoritmo: Greedy
+Dataset: ford01.dat
+Semilla: Sin semilla
+Coste: 3876
+
+Nombre del Algoritmo: Greedy
+Dataset: ford02.dat
+Semilla: Sin semilla
+Coste: 32748
+
+Nombre del Algoritmo: Greedy
+Dataset: ford03.dat
+Semilla: Sin semilla
+Coste: 13786
+
+Nombre del Algoritmo: Greedy
+Dataset: ford04.dat
+Semilla: Sin semilla
+Coste: 188018
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford01.dat
+Semilla: 26583240
+Coste: 3874
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford01.dat
+Semilla: 65832402
+Coste: 3862
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford01.dat
+Semilla: 58324026
+Coste: 3832
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford01.dat
+Semilla: 83240265
+Coste: 3898
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford01.dat
+Semilla: 32402658
+Coste: 3866
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford02.dat
+Semilla: 26583240
+Coste: 35128
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford02.dat
+Semilla: 65832402
+Coste: 34982
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford02.dat
+Semilla: 58324026
+Coste: 33646
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford02.dat
+Semilla: 83240265
+Coste: 34874
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford02.dat
+Semilla: 32402658
+Coste: 35472
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford03.dat
+Semilla: 26583240
+Coste: 13748
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford03.dat
+Semilla: 65832402
+Coste: 13806
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford03.dat
+Semilla: 58324026
+Coste: 13748
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford03.dat
+Semilla: 83240265
+Coste: 13806
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford03.dat
+Semilla: 32402658
+Coste: 13800
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford04.dat
+Semilla: 26583240
+Coste: 193432
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford04.dat
+Semilla: 65832402
+Coste: 194068
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford04.dat
+Semilla: 58324026
+Coste: 192118
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford04.dat
+Semilla: 83240265
+Coste: 191562
+
+Nombre del Algoritmo: GreedyAleatorio
+Dataset: ford04.dat
+Semilla: 32402658
+Coste: 190834
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford01.dat
+Semilla: 26583240
+Coste: 3652
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford01.dat
+Semilla: 65832402
+Coste: 3642
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford01.dat
+Semilla: 58324026
+Coste: 3686
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford01.dat
+Semilla: 83240265
+Coste: 3658
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford01.dat
+Semilla: 32402658
+Coste: 3666
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford02.dat
+Semilla: 26583240
+Coste: 31472
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford02.dat
+Semilla: 65832402
+Coste: 31736
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford02.dat
+Semilla: 58324026
+Coste: 31402
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford02.dat
+Semilla: 83240265
+Coste: 30730
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford02.dat
+Semilla: 32402658
+Coste: 30674
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford03.dat
+Semilla: 26583240
+Coste: 13376
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford03.dat
+Semilla: 65832402
+Coste: 13404
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford03.dat
+Semilla: 58324026
+Coste: 13374
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford03.dat
+Semilla: 83240265
+Coste: 13418
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford03.dat
+Semilla: 32402658
+Coste: 13382
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford04.dat
+Semilla: 26583240
+Coste: 175336
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford04.dat
+Semilla: 65832402
+Coste: 176674
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford04.dat
+Semilla: 58324026
+Coste: 178590
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford04.dat
+Semilla: 83240265
+Coste: 178308
+
+Nombre del Algoritmo: BusquedaLocal
+Dataset: ford04.dat
+Semilla: 32402658
+Coste: 175820
+

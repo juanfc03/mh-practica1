@@ -62,20 +62,18 @@ public class Main {
 
     private static void imprimirSolucion(int[] solucion, Algoritmo algoritmo, String dataset,
                                          int[][] flujos, int[][] distancias, String semilla){
-        System.out.println("\n=== Algoritmo: "
-                            + algoritmo.nombreAlgoritmo()
-                            + "dataset=" + dataset
-                            + "Semilla=" + semilla == null ? "No usa semilla" : semilla
-                            + "===");
+        semilla = semilla == null ? "No usa semilla" : semilla;
 
-        System.out.println("Solución:");
+        System.out.println("\n<--------------------------------------------------------------------------------->"
+                            + "\n Algoritmo: " + algoritmo.nombreAlgoritmo()
+                            + "\n Dataset: " + dataset
+                            + "\n Semilla: " + semilla
+                            + "\n Coste: " + algoritmo.calcularCoste(flujos, distancias, solucion)
+                            + "\n<--------------------------------------------------------------------------------->"
+                            + "\n Solucion: ");
 
         for (int i = 0; i < solucion.length; i++)
             System.out.println("Departamento " + (i + 1) + " -> Localización " + solucion[i]);
-
-        //System.out.println("Coste: " + algoritmo_actual.calcularCoste(datos.getFlujos(), datos.getDistancias(), solucion));
-        System.out.println("Coste: " + algoritmo.calcularCoste(flujos, distancias, solucion));
-
     }
 
     public static void main(String[] args) {
@@ -83,18 +81,18 @@ public class Main {
         // Poner en cmd.exe java -cp target/classes metaheuristicas.app.Main src/main/resources/parametros.txt
 
         int k;
-        long seed;
         int[] solucion;
         int[][] flujos;
         int[][] distancias;
 
-        ArchivoDatos datos;
-        Algoritmo algoritmo_actual;
-
         String ruta_base="src/main/resources/";
+        EscribirTxt escribirTxt;
+
         String[] algoritmos;
         String[] datasets;
         String[] semillas;
+
+        Map<String, String[]> parametros;
 
         if (args.length < 1) {
             System.err.println("Debes pasar la ruta del fichero de parámetros como argumento.");
@@ -103,7 +101,7 @@ public class Main {
 
         try {
 
-            Map<String, String[]> parametros = leerParametrosArgs(args[0]);
+            parametros = leerParametrosArgs(args[0]);
 
             algoritmos = cargar(parametros, "Algoritmos");
             datasets = cargar(parametros, "Dataset");
@@ -112,38 +110,43 @@ public class Main {
 
             //mostrarDatosCargados(algoritmos, datasets, semillas, k);
 
-            for (String dataset : datasets) {
+            for (String algoritmo : algoritmos) {
 
-                datos = new ArchivoDatos(ruta_base + dataset);
+                Algoritmo algoritmo_actual = AlgoritmoFactory.nuevoAlgoritmo(algoritmo);
 
-                //mostrarDataset(datos, dataset);
+                for(String dataset : datasets){
 
-                flujos = datos.getFlujos();
-                distancias = datos.getDistancias();
+                    ArchivoDatos datos = new ArchivoDatos(ruta_base + dataset);
 
-                for(String algoritmo : algoritmos){
+                    //mostrarDataset(datos, dataset);
 
-                    algoritmo_actual = AlgoritmoFactory.nuevoAlgoritmo(algoritmo);
+                    flujos = datos.getFlujos();
+                    distancias = datos.getDistancias();
 
                     if (!algoritmo_actual.usaSemilla() || !(semillas.length > 0)) {
                         solucion = algoritmo_actual.resolver(flujos, distancias, null, algoritmo_actual.usaK() ? k : 0);
 
                         imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, null);
 
-                        return;
-                    }
+                        escribirTxt = new EscribirTxt(algoritmo_actual.nombreAlgoritmo(), dataset, null,
+                                ruta_base, algoritmo_actual.calcularCoste(flujos, distancias, solucion));
+                    } else {
 
-                    for(String semilla : semillas){ //Si hay semillas, ejecutamos una por semilla
+                        for(String semilla : semillas) { //Si hay semillas, ejecutamos una por semilla
 
-                        if (semilla == null || semilla.isBlank()) {
-                            throw new IllegalArgumentException("Valor de semilla vacío en parámetros");
+                            if (semilla == null || semilla.isBlank()) {
+                                throw new IllegalArgumentException("Valor de semilla vacío en parámetros");
+                            }
+
+                            long seed = Parser.toLong(semilla);
+
+                            solucion = algoritmo_actual.resolver(flujos, distancias, seed, algoritmo_actual.usaK() ? k : 0);
+
+                            imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, semilla);
+
+                            escribirTxt = new EscribirTxt(algoritmo_actual.nombreAlgoritmo(), dataset, semilla,
+                                    ruta_base, algoritmo_actual.calcularCoste(flujos, distancias, solucion));
                         }
-
-                        seed = Parser.toLong(semilla);
-
-                        solucion = algoritmo_actual.resolver(flujos, distancias, seed, algoritmo_actual.usaK() ? k : 0);
-
-                        imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, semilla);
                     }
                 }
             }
