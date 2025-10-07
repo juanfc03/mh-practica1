@@ -4,29 +4,34 @@ public interface Algoritmo {
 
     String nombreAlgoritmo();
 
-    int[] resolver(int[][] matriz1, int[][] matriz2, Long semilla, int k);
+    int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k);
 
     /**
-     * Calcula el coste total de una asignación de departamentos a localizaciones.
-     * El coste se calcula como la suma de F[i][j] * D[S[i]-1][S[j]-1] para todos los pares (i,j).
-     *
-     * @param matriz1 Matriz de flujo entre departamentos.
-     * @param matriz2 Matriz de distancias entre localizaciones.
-     * @param S Asignación de departamentos a localizaciones (1-based).
+     * Calcula el coste de una asignación entre flujos y distancias
      * @return Coste total de la asignación.
      */
-    default int calcularCoste(int[][] matriz1,  int[][] matriz2, int[] S){
-        int coste=0;
-        int tam=matriz1.length;
+    default int calcularCoste(int[][] flujos, int[][] distancias, int[] solucion){
+        int coste = 0;
+        int tam = flujos.length;
+
         for(int i = 0; i < tam; i++)
             for(int j = 0; j < tam; j++)
-                coste+=matriz1[i][j] * matriz2[S[i]-1][S[j]-1];
+                coste += flujos[i][j] * distancias[solucion[i]-1][solucion[j]-1];
 
         return coste;
     }
 
-    // Por defecto: determinista y no usa k
-    default boolean usaSemilla() { return false; }
-    default boolean usaK() { return false; }
+    /**
+     * Calcula la importancia de cada departamento como la suma de su flujo hacia los demás
+     * y la centralidad de cada localización como la suma de sus distancias hacia todas las demás
+     */
+    default void calculosImportanciaCentralidad(int[][] flujos, int[][] distancias, int tam, int[] importancia, int[] centralidad) {
+        for(int i = 0; i < tam; i++)
+            for(int j = 0; j < tam; j++){
 
+                importancia[i] += flujos[i][j]; // Este sumatorio va de i a j solo porque es simétrica
+                centralidad[i] += distancias[i][j];
+
+            }
+    }
 }
