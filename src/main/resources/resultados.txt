@@ -1,220 +1,300 @@
 Nombre del Algoritmo: Greedy
-Dataset: ford01.dat
-Semilla: Sin semilla
-Coste: 3876
+Datasetford01.dat
+Semilla26583240
+Coste: 3904
 
 Nombre del Algoritmo: Greedy
-Dataset: ford02.dat
-Semilla: Sin semilla
-Coste: 32748
+Datasetford01.dat
+Semilla65832402
+Coste: 3904
 
 Nombre del Algoritmo: Greedy
-Dataset: ford03.dat
-Semilla: Sin semilla
-Coste: 13786
+Datasetford01.dat
+Semilla58324026
+Coste: 3904
 
 Nombre del Algoritmo: Greedy
-Dataset: ford04.dat
-Semilla: Sin semilla
+Datasetford01.dat
+Semilla83240265
+Coste: 3904
+
+Nombre del Algoritmo: Greedy
+Datasetford01.dat
+Semilla32402658
+Coste: 3904
+
+Nombre del Algoritmo: Greedy
+Datasetford02.dat
+Semilla26583240
+Coste: 34646
+
+Nombre del Algoritmo: Greedy
+Datasetford02.dat
+Semilla65832402
+Coste: 34646
+
+Nombre del Algoritmo: Greedy
+Datasetford02.dat
+Semilla58324026
+Coste: 34646
+
+Nombre del Algoritmo: Greedy
+Datasetford02.dat
+Semilla83240265
+Coste: 34646
+
+Nombre del Algoritmo: Greedy
+Datasetford02.dat
+Semilla32402658
+Coste: 34646
+
+Nombre del Algoritmo: Greedy
+Datasetford03.dat
+Semilla26583240
+Coste: 13876
+
+Nombre del Algoritmo: Greedy
+Datasetford03.dat
+Semilla65832402
+Coste: 13876
+
+Nombre del Algoritmo: Greedy
+Datasetford03.dat
+Semilla58324026
+Coste: 13876
+
+Nombre del Algoritmo: Greedy
+Datasetford03.dat
+Semilla83240265
+Coste: 13876
+
+Nombre del Algoritmo: Greedy
+Datasetford03.dat
+Semilla32402658
+Coste: 13876
+
+Nombre del Algoritmo: Greedy
+Datasetford04.dat
+Semilla26583240
+Coste: 188018
+
+Nombre del Algoritmo: Greedy
+Datasetford04.dat
+Semilla65832402
+Coste: 188018
+
+Nombre del Algoritmo: Greedy
+Datasetford04.dat
+Semilla58324026
+Coste: 188018
+
+Nombre del Algoritmo: Greedy
+Datasetford04.dat
+Semilla83240265
+Coste: 188018
+
+Nombre del Algoritmo: Greedy
+Datasetford04.dat
+Semilla32402658
 Coste: 188018
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford01.dat
-Semilla: 26583240
-Coste: 3874
+Datasetford01.dat
+Semilla26583240
+Coste: 3868
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford01.dat
-Semilla: 65832402
-Coste: 3862
+Datasetford01.dat
+Semilla65832402
+Coste: 3894
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford01.dat
-Semilla: 58324026
+Datasetford01.dat
+Semilla58324026
 Coste: 3832
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford01.dat
-Semilla: 83240265
-Coste: 3898
+Datasetford01.dat
+Semilla83240265
+Coste: 3822
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford01.dat
-Semilla: 32402658
-Coste: 3866
+Datasetford01.dat
+Semilla32402658
+Coste: 3856
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford02.dat
-Semilla: 26583240
-Coste: 35128
+Datasetford02.dat
+Semilla26583240
+Coste: 34948
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford02.dat
-Semilla: 65832402
-Coste: 34982
+Datasetford02.dat
+Semilla65832402
+Coste: 34242
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford02.dat
-Semilla: 58324026
-Coste: 33646
+Datasetford02.dat
+Semilla58324026
+Coste: 34688
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford02.dat
-Semilla: 83240265
-Coste: 34874
+Datasetford02.dat
+Semilla83240265
+Coste: 36308
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford02.dat
-Semilla: 32402658
-Coste: 35472
+Datasetford02.dat
+Semilla32402658
+Coste: 34952
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford03.dat
-Semilla: 26583240
-Coste: 13748
+Datasetford03.dat
+Semilla26583240
+Coste: 13824
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford03.dat
-Semilla: 65832402
-Coste: 13806
+Datasetford03.dat
+Semilla65832402
+Coste: 13788
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford03.dat
-Semilla: 58324026
-Coste: 13748
-
-Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford03.dat
-Semilla: 83240265
-Coste: 13806
-
-Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford03.dat
-Semilla: 32402658
+Datasetford03.dat
+Semilla58324026
 Coste: 13800
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford04.dat
-Semilla: 26583240
-Coste: 193432
+Datasetford03.dat
+Semilla83240265
+Coste: 13804
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford04.dat
-Semilla: 65832402
-Coste: 194068
+Datasetford03.dat
+Semilla32402658
+Coste: 13764
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford04.dat
-Semilla: 58324026
-Coste: 192118
+Datasetford04.dat
+Semilla26583240
+Coste: 192954
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford04.dat
-Semilla: 83240265
-Coste: 191562
+Datasetford04.dat
+Semilla65832402
+Coste: 195722
 
 Nombre del Algoritmo: GreedyAleatorio
-Dataset: ford04.dat
-Semilla: 32402658
-Coste: 190834
+Datasetford04.dat
+Semilla58324026
+Coste: 193932
+
+Nombre del Algoritmo: GreedyAleatorio
+Datasetford04.dat
+Semilla83240265
+Coste: 195334
+
+Nombre del Algoritmo: GreedyAleatorio
+Datasetford04.dat
+Semilla32402658
+Coste: 196288
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford01.dat
-Semilla: 26583240
-Coste: 3652
+Datasetford01.dat
+Semilla26583240
+Coste: 3678
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford01.dat
-Semilla: 65832402
-Coste: 3642
+Datasetford01.dat
+Semilla65832402
+Coste: 3630
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford01.dat
-Semilla: 58324026
-Coste: 3686
+Datasetford01.dat
+Semilla58324026
+Coste: 3644
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford01.dat
-Semilla: 83240265
-Coste: 3658
+Datasetford01.dat
+Semilla83240265
+Coste: 3660
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford01.dat
-Semilla: 32402658
-Coste: 3666
+Datasetford01.dat
+Semilla32402658
+Coste: 3640
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford02.dat
-Semilla: 26583240
-Coste: 31472
+Datasetford02.dat
+Semilla26583240
+Coste: 31500
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford02.dat
-Semilla: 65832402
-Coste: 31736
+Datasetford02.dat
+Semilla65832402
+Coste: 32142
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford02.dat
-Semilla: 58324026
-Coste: 31402
+Datasetford02.dat
+Semilla58324026
+Coste: 31264
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford02.dat
-Semilla: 83240265
-Coste: 30730
+Datasetford02.dat
+Semilla83240265
+Coste: 30794
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford02.dat
-Semilla: 32402658
-Coste: 30674
+Datasetford02.dat
+Semilla32402658
+Coste: 31256
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford03.dat
-Semilla: 26583240
-Coste: 13376
+Datasetford03.dat
+Semilla26583240
+Coste: 13388
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford03.dat
-Semilla: 65832402
+Datasetford03.dat
+Semilla65832402
 Coste: 13404
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford03.dat
-Semilla: 58324026
-Coste: 13374
+Datasetford03.dat
+Semilla58324026
+Coste: 13422
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford03.dat
-Semilla: 83240265
-Coste: 13418
+Datasetford03.dat
+Semilla83240265
+Coste: 13386
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford03.dat
-Semilla: 32402658
-Coste: 13382
+Datasetford03.dat
+Semilla32402658
+Coste: 13394
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford04.dat
-Semilla: 26583240
-Coste: 175336
+Datasetford04.dat
+Semilla26583240
+Coste: 177608
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford04.dat
-Semilla: 65832402
-Coste: 176674
+Datasetford04.dat
+Semilla65832402
+Coste: 177098
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford04.dat
-Semilla: 58324026
-Coste: 178590
+Datasetford04.dat
+Semilla58324026
+Coste: 175718
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford04.dat
-Semilla: 83240265
-Coste: 178308
+Datasetford04.dat
+Semilla83240265
+Coste: 180276
 
 Nombre del Algoritmo: BusquedaLocal
-Dataset: ford04.dat
-Semilla: 32402658
-Coste: 175820
+Datasetford04.dat
+Semilla32402658
+Coste: 178540
 
