@@ -14,7 +14,8 @@ public class ArchivoDatos implements Archivo {
     private int[][] distancias;
 
     public ArchivoDatos(String ruta_base, String ruta_dataset) throws IOException {
-        lector = new FileReader(ruta_base + ruta_dataset);
+        String carpeta_dataset = "datasets/";
+        lector = new FileReader(ruta_base + carpeta_dataset + ruta_dataset);
     }
 
     @Override

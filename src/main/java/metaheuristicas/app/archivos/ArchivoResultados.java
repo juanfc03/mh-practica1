@@ -9,7 +9,8 @@ public class ArchivoResultados implements Archivo {
 
     public ArchivoResultados(String ruta_base, String ruta_resultados) {
         String ruta;
-        ruta = ruta_base + ruta_resultados;
+        String carpeta_resultados = "results/";
+        ruta = ruta_base + carpeta_resultados + ruta_resultados;
         this.archivo = new File(ruta);
         eliminar();
     }

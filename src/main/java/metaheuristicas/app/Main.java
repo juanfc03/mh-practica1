@@ -30,7 +30,7 @@ public class Main {
                             + "\n Solucion: ");
 
 
-         for (int i = 0; i < solucion.length; i++) System.out.println("Departamento " + (i + 1) + " -> Localización " + solucion[i]);
+        //for (int i = 0; i < solucion.length; i++) System.out.println("Departamento " + (i + 1) + " -> Localización " + solucion[i]);
     }
 
     /**

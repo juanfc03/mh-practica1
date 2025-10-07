@@ -13,8 +13,9 @@ public class ArchivoParametros implements Archivo {
     private final Map<String, String[]> parametros;
 
     public ArchivoParametros(String ruta_base, String ruta_parametros) {
+        String carpeta_parametros = "parameters/";
         parametros = new HashMap<>();
-        ruta = ruta_base + ruta_parametros;
+        ruta = ruta_base + carpeta_parametros + ruta_parametros;
     }
 
     @Override
