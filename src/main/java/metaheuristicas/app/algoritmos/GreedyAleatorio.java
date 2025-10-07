@@ -1,54 +1,26 @@
 package metaheuristicas.app.algoritmos;
 
+import metaheuristicas.app.utils.Parser;
 import metaheuristicas.app.utils.Sorter;
 
 import java.util.*;
 
 public class GreedyAleatorio implements Algoritmo {
-
-    @Override
-    public String nombreAlgoritmo() { return "GreedyAleatorio"; }
-
     /**
-     * Calcula la importancia de cada departamento y la centralidad de cada localización
-     */
-    private void calculosImportanciaCentralidad(int[][] matriz1, int[][] matriz2, int tam, int[] importancia, int[] centralidad) {
-
-        for(int i = 0; i < tam; i++)
-            for(int j = 0; j < tam; j++){
-
-                importancia[i] += matriz1[i][j]; // Este sumatorio va de i a j solo porque es simétrica
-                centralidad[i] += matriz2[i][j];
-
-            }
-    }
-
-    /**
-     * Heurística Greedy aleatorizado para el Quadratic Assignment Problem (QAP).
-     * Esta función genera una solución asignando
-     * departamentos a localizaciones de manera intuitiva:
-     * 1) Calcula la "importancia" de cada departamento como la suma de su flujo hacia los demás.
-     * 2) Calcula la "centralidad" de cada localización como la suma de sus distancias hacia todas las demás.
-     * 3) Ordena los departamentos de mayor a menor importancia y las localizaciones de menor a mayor centralidad.
-     * 4) Asigna el departamento más importante a la localización más central, el siguiente al segundo, etc; de forma aleatoria.
-     *
-     * @param matriz1 Matriz de flujo entre departamentos (f_ij).
-     * @param matriz2 Matriz de distancias entre localizaciones (d_kl).
-     * @param semilla Semilla para la aleatoriedad.
-     * @param k Valor K variable.
+     * Asigna el departamento más importante a la localización más central, el siguiente al segundo, etc; de forma aleatoria.
      * @return Array con la permutación de asignaciones inicial.
      */
     @Override
-    public int[] resolver(int[][] matriz1, int[][] matriz2, Long semilla, int k) {
-        int tam = matriz1.length;
+    public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k) {
+        int tam = flujos.length;
         int[] importancia = new int[tam];
         int[] centralidad = new int[tam];
         int[] solucion = new int[tam];
-        Random rand = new Random(semilla);
+        Random rand = new Random(Parser.toLong(semilla));
         ArrayList<Integer> departamentos;
         ArrayList<Integer> localizaciones;
 
-        calculosImportanciaCentralidad(matriz1, matriz2, tam, importancia, centralidad);
+        calculosImportanciaCentralidad(flujos, distancias, tam, importancia, centralidad);
 
         departamentos = Sorter.sortDesc(importancia);
         localizaciones = Sorter.sortAsc(centralidad);
@@ -75,7 +47,5 @@ public class GreedyAleatorio implements Algoritmo {
     }
 
     @Override
-    public boolean usaSemilla() { return true; }
-    @Override
-    public boolean usaK() { return true; }
+    public String nombreAlgoritmo() { return "GreedyAleatorio"; }
 }
