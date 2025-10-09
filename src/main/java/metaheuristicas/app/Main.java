@@ -40,6 +40,7 @@ public class Main {
 
 
         int k;
+        int iteraciones;
         int coste;
         int[] solucion;
         int[][] flujos;
@@ -75,27 +76,40 @@ public class Main {
             datasets = cargar(parametros, "Dataset");
             semillas = parametros.getOrDefault("Semillas", new String[0]);
             k = Parser.toInt(cargar(parametros, "K")[0]);
+            iteraciones = Parser.toInt(cargar(parametros, "Iteraciones")[0]);
 
-            for (String algoritmo : algoritmos) {
-                Algoritmo algoritmo_actual = AlgoritmoFactory.nuevoAlgoritmo(algoritmo);
+            for (String dataset : datasets) {
 
-                for(String dataset : datasets){
-                    ArchivoDatos datos = new ArchivoDatos(ruta_base, dataset);
-                    datos.lectura();
+                ArchivoDatos datos = new ArchivoDatos(ruta_base, dataset);
+                datos.lectura();
 
-                    flujos = datos.getFlujos();
-                    distancias = datos.getDistancias();
+                flujos = datos.getFlujos();
+                distancias = datos.getDistancias();
 
-                    for (String semilla : semillas) {
-                        Validator.validateSeed(semilla);
+                for (String algoritmo : algoritmos) {
 
-                        solucion = algoritmo_actual.resolver(flujos, distancias, semilla, k);
+                    Algoritmo algoritmo_actual = AlgoritmoFactory.nuevoAlgoritmo(algoritmo);
+                    if(algoritmo_actual.requiereSemilla()){
+
+                        for (String semilla : semillas) {
+                            Validator.validateSeed(semilla);
+
+                            solucion = algoritmo_actual.resolver(flujos, distancias, semilla, k, iteraciones);
+                            coste = algoritmo_actual.calcularCoste(flujos, distancias, solucion);
+
+                            imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, semilla);
+                            archivoResultados.escribir(algoritmo_actual.nombreAlgoritmo(), dataset, semilla, coste);
+                        }
+
+                    }else{
+                        solucion = algoritmo_actual.resolver(flujos,distancias,null, k, iteraciones);
                         coste = algoritmo_actual.calcularCoste(flujos, distancias, solucion);
-
-                        imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, semilla);
-                        archivoResultados.escribir(algoritmo_actual.nombreAlgoritmo(), dataset, semilla, coste);
+                        imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias,null);
+                        archivoResultados.escribir(algoritmo_actual.nombreAlgoritmo(), dataset, null, coste);
                     }
+
                 }
+
             }
 
         } catch (IOException ex) {

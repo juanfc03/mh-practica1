@@ -25,8 +25,8 @@ public class ArchivoResultados implements Archivo {
         FileWriter writer = new FileWriter(archivo, true);
 
         abrir_escritura(writer, "Nombre del Algoritmo: ", nombre);
-        abrir_escritura(writer, "\nDataset", dataset);
-        abrir_escritura(writer, "\nSemilla", semilla);
+        abrir_escritura(writer, "\nDataset:", dataset);
+        abrir_escritura(writer, "\nSemilla:", semilla);
         abrir_escritura(writer, "\nCoste: ", String.valueOf(coste));
         abrir_escritura(writer, "\n\n", "");
 

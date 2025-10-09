@@ -1,300 +1,55 @@
 Nombre del Algoritmo: Greedy
-Datasetford01.dat
-Semilla26583240
-Coste: 3904
-
-Nombre del Algoritmo: Greedy
-Datasetford01.dat
-Semilla65832402
-Coste: 3904
-
-Nombre del Algoritmo: Greedy
-Datasetford01.dat
-Semilla58324026
-Coste: 3904
-
-Nombre del Algoritmo: Greedy
-Datasetford01.dat
-Semilla83240265
-Coste: 3904
-
-Nombre del Algoritmo: Greedy
-Datasetford01.dat
-Semilla32402658
-Coste: 3904
-
-Nombre del Algoritmo: Greedy
-Datasetford02.dat
-Semilla26583240
-Coste: 34646
-
-Nombre del Algoritmo: Greedy
-Datasetford02.dat
-Semilla65832402
-Coste: 34646
-
-Nombre del Algoritmo: Greedy
-Datasetford02.dat
-Semilla58324026
-Coste: 34646
-
-Nombre del Algoritmo: Greedy
-Datasetford02.dat
-Semilla83240265
-Coste: 34646
-
-Nombre del Algoritmo: Greedy
-Datasetford02.dat
-Semilla32402658
-Coste: 34646
-
-Nombre del Algoritmo: Greedy
-Datasetford03.dat
-Semilla26583240
-Coste: 13876
-
-Nombre del Algoritmo: Greedy
-Datasetford03.dat
-Semilla65832402
-Coste: 13876
-
-Nombre del Algoritmo: Greedy
-Datasetford03.dat
-Semilla58324026
-Coste: 13876
-
-Nombre del Algoritmo: Greedy
-Datasetford03.dat
-Semilla83240265
-Coste: 13876
-
-Nombre del Algoritmo: Greedy
-Datasetford03.dat
-Semilla32402658
-Coste: 13876
-
-Nombre del Algoritmo: Greedy
-Datasetford04.dat
-Semilla26583240
-Coste: 188018
-
-Nombre del Algoritmo: Greedy
-Datasetford04.dat
-Semilla65832402
-Coste: 188018
-
-Nombre del Algoritmo: Greedy
-Datasetford04.dat
-Semilla58324026
-Coste: 188018
-
-Nombre del Algoritmo: Greedy
-Datasetford04.dat
-Semilla83240265
-Coste: 188018
-
-Nombre del Algoritmo: Greedy
-Datasetford04.dat
-Semilla32402658
-Coste: 188018
+Dataset:_ejemplo.txt
+Semilla:Sin semilla
+Coste: 364
 
 Nombre del Algoritmo: GreedyAleatorio
-Datasetford01.dat
-Semilla26583240
-Coste: 3868
+Dataset:_ejemplo.txt
+Semilla:26583240
+Coste: 334
 
 Nombre del Algoritmo: GreedyAleatorio
-Datasetford01.dat
-Semilla65832402
-Coste: 3894
+Dataset:_ejemplo.txt
+Semilla:65832402
+Coste: 346
 
 Nombre del Algoritmo: GreedyAleatorio
-Datasetford01.dat
-Semilla58324026
-Coste: 3832
+Dataset:_ejemplo.txt
+Semilla:58324026
+Coste: 358
 
 Nombre del Algoritmo: GreedyAleatorio
-Datasetford01.dat
-Semilla83240265
-Coste: 3822
+Dataset:_ejemplo.txt
+Semilla:83240265
+Coste: 344
 
 Nombre del Algoritmo: GreedyAleatorio
-Datasetford01.dat
-Semilla32402658
-Coste: 3856
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford02.dat
-Semilla26583240
-Coste: 34948
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford02.dat
-Semilla65832402
-Coste: 34242
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford02.dat
-Semilla58324026
-Coste: 34688
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford02.dat
-Semilla83240265
-Coste: 36308
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford02.dat
-Semilla32402658
-Coste: 34952
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford03.dat
-Semilla26583240
-Coste: 13824
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford03.dat
-Semilla65832402
-Coste: 13788
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford03.dat
-Semilla58324026
-Coste: 13800
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford03.dat
-Semilla83240265
-Coste: 13804
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford03.dat
-Semilla32402658
-Coste: 13764
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford04.dat
-Semilla26583240
-Coste: 192954
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford04.dat
-Semilla65832402
-Coste: 195722
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford04.dat
-Semilla58324026
-Coste: 193932
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford04.dat
-Semilla83240265
-Coste: 195334
-
-Nombre del Algoritmo: GreedyAleatorio
-Datasetford04.dat
-Semilla32402658
-Coste: 196288
+Dataset:_ejemplo.txt
+Semilla:32402658
+Coste: 358
 
 Nombre del Algoritmo: BusquedaLocal
-Datasetford01.dat
-Semilla26583240
-Coste: 3678
+Dataset:_ejemplo.txt
+Semilla:26583240
+Coste: 326
 
 Nombre del Algoritmo: BusquedaLocal
-Datasetford01.dat
-Semilla65832402
-Coste: 3630
+Dataset:_ejemplo.txt
+Semilla:65832402
+Coste: 322
 
 Nombre del Algoritmo: BusquedaLocal
-Datasetford01.dat
-Semilla58324026
-Coste: 3644
+Dataset:_ejemplo.txt
+Semilla:58324026
+Coste: 336
 
 Nombre del Algoritmo: BusquedaLocal
-Datasetford01.dat
-Semilla83240265
-Coste: 3660
+Dataset:_ejemplo.txt
+Semilla:83240265
+Coste: 336
 
 Nombre del Algoritmo: BusquedaLocal
-Datasetford01.dat
-Semilla32402658
-Coste: 3640
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford02.dat
-Semilla26583240
-Coste: 31500
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford02.dat
-Semilla65832402
-Coste: 32142
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford02.dat
-Semilla58324026
-Coste: 31264
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford02.dat
-Semilla83240265
-Coste: 30794
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford02.dat
-Semilla32402658
-Coste: 31256
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford03.dat
-Semilla26583240
-Coste: 13388
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford03.dat
-Semilla65832402
-Coste: 13404
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford03.dat
-Semilla58324026
-Coste: 13422
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford03.dat
-Semilla83240265
-Coste: 13386
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford03.dat
-Semilla32402658
-Coste: 13394
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford04.dat
-Semilla26583240
-Coste: 177608
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford04.dat
-Semilla65832402
-Coste: 177098
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford04.dat
-Semilla58324026
-Coste: 175718
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford04.dat
-Semilla83240265
-Coste: 180276
-
-Nombre del Algoritmo: BusquedaLocal
-Datasetford04.dat
-Semilla32402658
-Coste: 178540
+Dataset:_ejemplo.txt
+Semilla:32402658
+Coste: 336
 

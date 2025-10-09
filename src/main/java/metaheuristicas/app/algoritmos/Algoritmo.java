@@ -4,7 +4,7 @@ public interface Algoritmo {
 
     String nombreAlgoritmo();
 
-    int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k);
+    int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones);
 
     /**
      * Calcula el coste de una asignación entre flujos y distancias
@@ -29,9 +29,13 @@ public interface Algoritmo {
         for(int i = 0; i < tam; i++)
             for(int j = 0; j < tam; j++){
 
-                importancia[i] += flujos[i][j]; // Este sumatorio va de i a j solo porque es simétrica
-                centralidad[i] += distancias[i][j];
+                importancia[i] += flujos[i][j]*2;
+                centralidad[i] += distancias[i][j]*2;
 
             }
+    }
+
+    default boolean requiereSemilla(){
+        return true;
     }
 }

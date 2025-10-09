@@ -9,7 +9,7 @@ public class Greedy implements Algoritmo{
      * @return Array con la permutación de asignaciones inicial.
      */
     @Override
-    public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k) {
+    public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones) {
         int tam = flujos.length;
         int[] importancia = new int[tam];
         int[] centralidad = new int[tam];
@@ -30,4 +30,9 @@ public class Greedy implements Algoritmo{
 
     @Override
     public String nombreAlgoritmo() { return "Greedy"; }
+
+    @Override
+    public boolean requiereSemilla() {
+        return false;
+    }
 }

@@ -9,6 +9,7 @@ public interface AlgoritmoFactory {
             case "GREEDY" -> new Greedy();
             case "GREEDYALEATORIO"  -> new GreedyAleatorio();
             case "BUSQUEDALOCAL" -> new BusquedaLocal();
+            case "BUSQUEDATABU" -> new BusquedaTabu();
             default -> throw new IllegalArgumentException("Algoritmo no existe" + nombre);
         };
 
