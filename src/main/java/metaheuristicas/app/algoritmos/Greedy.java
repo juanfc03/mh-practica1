@@ -35,4 +35,13 @@ public class Greedy implements Algoritmo{
     public boolean requiereSemilla() {
         return false;
     }
+
+    @Override
+    public String siglasAlgoritmo() {return "GE";}
+
+    @Override
+    public boolean tieneLogs() {return false;}
+
+    @Override
+    public List<String> getLog() { return null;}
 }

@@ -2,10 +2,14 @@ package metaheuristicas.app.algoritmos;
 
 import metaheuristicas.app.utils.Swapper;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class BusquedaTabu implements Algoritmo{
+
+    private final List<String> log = new ArrayList<>();
 
     //FIXME: Pasarlo al fichero de parametros
     private static final int TENENCIA_TABU = 3;           // Tenencia tabú
@@ -16,6 +20,7 @@ public class BusquedaTabu implements Algoritmo{
     public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones) {
 
         GreedyAleatorio randomGreedy = new GreedyAleatorio();
+        int[] solucionInicial = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones);
         int[] solucionActual = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones);
 
         int nUnidades = solucionActual.length;
@@ -174,4 +179,11 @@ public class BusquedaTabu implements Algoritmo{
 
     @Override
     public String nombreAlgoritmo() { return "BusquedaTabu"; }
+
+    @Override
+    public String siglasAlgoritmo() {return "BT";}
+
+    @Override
+    public List<String> getLog() { return log; }
+
 }

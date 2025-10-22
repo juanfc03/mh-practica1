@@ -34,7 +34,7 @@ public class Main {
     }
 
     /**
-     * En la Terminal, escribir: java -cp target/classes metaheuristicas.app.Main parametros.txt resultados.txt
+     * En la Terminal, escribir: java -cp target/classes metaheuristicas.app.Main parametros.txt
      */
     public static void main(String[] args) {
 
@@ -48,7 +48,6 @@ public class Main {
 
         String ruta_base="src/main/resources/";
         String nombreParametros;
-        String nombreResultados;
         ArchivoResultados archivoResultados;
         ArchivoParametros archivoParametros;
 
@@ -58,15 +57,13 @@ public class Main {
 
         Map<String, String[]> parametros;
 
-        if (args.length < 2) {
-            System.err.println("Debes pasar el nombre del fichero de parámetros y de resultados como argumento.");
+        if (args.length < 1) {
+            System.err.println("Debes pasar el nombre del fichero de parámetros como argumento.");
             return;
         }
 
         nombreParametros = args[0];
-        nombreResultados = args[1];
         archivoParametros = new ArchivoParametros(ruta_base, nombreParametros);
-        archivoResultados = new ArchivoResultados(ruta_base, nombreResultados);
 
         try {
             archivoParametros.lectura();
@@ -89,23 +86,30 @@ public class Main {
                 for (String algoritmo : algoritmos) {
 
                     Algoritmo algoritmo_actual = AlgoritmoFactory.nuevoAlgoritmo(algoritmo);
-                    if(algoritmo_actual.requiereSemilla()){
-
+                    if(algoritmo_actual.requiereSemilla()) {
                         for (String semilla : semillas) {
                             Validator.validateSeed(semilla);
 
                             solucion = algoritmo_actual.resolver(flujos, distancias, semilla, k, iteraciones);
                             coste = algoritmo_actual.calcularCoste(flujos, distancias, solucion);
 
+                            archivoResultados = new ArchivoResultados(ruta_base, algoritmo_actual.nombreAlgoritmo(), algoritmo_actual.siglasAlgoritmo(), dataset, semilla);
+
                             imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, semilla);
-                            archivoResultados.escribir(algoritmo_actual.nombreAlgoritmo(), dataset, semilla, coste);
+
+                            if (algoritmo_actual.tieneLogs())
+                                archivoResultados.escribirLogs(coste, algoritmo_actual.getLog());
+
                         }
 
-                    }else{
+                    } else {
                         solucion = algoritmo_actual.resolver(flujos,distancias,null, k, iteraciones);
                         coste = algoritmo_actual.calcularCoste(flujos, distancias, solucion);
+
+                        archivoResultados = new ArchivoResultados(ruta_base, algoritmo_actual.nombreAlgoritmo(), algoritmo_actual.siglasAlgoritmo(), dataset);
+
                         imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias,null);
-                        archivoResultados.escribir(algoritmo_actual.nombreAlgoritmo(), dataset, null, coste);
+                        archivoResultados.escribir(coste);
                     }
 
                 }

@@ -1,8 +1,11 @@
 package metaheuristicas.app.algoritmos;
 
+import java.util.List;
+
 public interface Algoritmo {
 
     String nombreAlgoritmo();
+    String siglasAlgoritmo();
 
     int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones);
 
@@ -67,4 +70,6 @@ public interface Algoritmo {
     default boolean requiereSemilla(){
         return true;
     }
+    default boolean tieneLogs() { return true;}
+    List<String> getLog();
 }

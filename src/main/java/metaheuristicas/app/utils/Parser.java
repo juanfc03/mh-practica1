@@ -21,4 +21,12 @@ public class Parser {
 
         return new ArrayList<>(Arrays.asList(result));
     }
+
+    public static String intToString(int number) {
+        return String.valueOf(number);
+    }
+
+    public static String solucionToString(int[] solucion) {
+        return Arrays.toString(solucion);
+    }
 }

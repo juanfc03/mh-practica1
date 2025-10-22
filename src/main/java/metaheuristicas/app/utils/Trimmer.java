@@ -7,4 +7,7 @@ public class Trimmer {
     public static String[] eliminarTodosEspacios(String str) {
         return str.trim().split("\\s+");
     }
+    public static String eliminarExtension(String str) {
+        return str.substring(0,str.lastIndexOf("."));
+    }
 }

@@ -48,4 +48,13 @@ public class GreedyAleatorio implements Algoritmo {
 
     @Override
     public String nombreAlgoritmo() { return "GreedyAleatorio"; }
+
+    @Override
+    public String siglasAlgoritmo() {return "GA";}
+
+    @Override
+    public boolean tieneLogs() {return false;}
+
+    @Override
+    public List<String> getLog() { return null;}
 }
