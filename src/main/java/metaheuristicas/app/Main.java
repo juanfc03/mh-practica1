@@ -99,6 +99,8 @@ public class Main {
 
                             if (algoritmo_actual.tieneLogs())
                                 archivoResultados.escribirLogs(coste, algoritmo_actual.getLog());
+                            else
+                                archivoResultados.escribir(coste);
 
                         }
 

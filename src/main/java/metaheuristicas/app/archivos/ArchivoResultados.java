@@ -73,8 +73,6 @@ public class ArchivoResultados implements Archivo {
     public void escribirLogs(int coste, List<String> logs) throws IOException {
         try {
             FileWriter fileWriter = new FileWriter(archivo, true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            PrintWriter salida = new PrintWriter(bufferedWriter);
 
             abrir_escritura(fileWriter, "Nombre del Algoritmo: ", nombreAlgoritmo);
             abrir_escritura(fileWriter, "\nDataset:", nombreDataset);
