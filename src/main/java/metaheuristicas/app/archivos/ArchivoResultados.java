@@ -64,7 +64,7 @@ public class ArchivoResultados implements Archivo {
         abrir_escritura(writer, "Nombre del Algoritmo: ", nombreAlgoritmo);
         abrir_escritura(writer, "\nDataset:", nombreDataset);
         abrir_escritura(writer, "\nSemilla:", numeroSemilla);
-        abrir_escritura(writer, "\nCoste: ", Parser.intToString(coste));
+        abrir_escritura(writer, "\nCoste: ", Parser.toString(coste));
         abrir_escritura(writer, "\n\n", "");
 
         cerrar_escritura(writer);
@@ -82,7 +82,7 @@ public class ArchivoResultados implements Archivo {
             for (String log : logs)
                 fileWriter.write(log + "\n");
 
-            abrir_escritura(fileWriter, "Coste final: ", Parser.intToString(coste));
+            abrir_escritura(fileWriter, "Coste final: ", Parser.toString(coste));
             fileWriter.write("\n --------------------------- \n");
 
             cerrar_escritura(fileWriter);

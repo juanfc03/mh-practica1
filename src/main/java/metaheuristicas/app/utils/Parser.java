@@ -13,6 +13,14 @@ public class Parser {
         return Long.parseLong(cadena);
     }
 
+    public static float toFloat(String cadena) {
+        return Float.parseFloat(cadena);
+    }
+
+    public static String toString(int number) {
+        return String.valueOf(number);
+    }
+
     public static ArrayList<Integer> toArray(int[] array) {
         Integer[] result = new Integer[array.length];
 
@@ -22,11 +30,8 @@ public class Parser {
         return new ArrayList<>(Arrays.asList(result));
     }
 
-    public static String intToString(int number) {
-        return String.valueOf(number);
-    }
-
     public static String solucionToString(int[] solucion) {
         return Arrays.toString(solucion);
     }
+
 }

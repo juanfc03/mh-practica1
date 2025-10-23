@@ -42,6 +42,10 @@ public class Main {
         int k;
         int iteraciones;
         int coste;
+        int tenencia;
+        float oscilacion;
+        float estancamiento;
+
         int[] solucion;
         int[][] flujos;
         int[][] distancias;
@@ -74,6 +78,9 @@ public class Main {
             semillas = parametros.getOrDefault("Semillas", new String[0]);
             k = Parser.toInt(cargar(parametros, "K")[0]);
             iteraciones = Parser.toInt(cargar(parametros, "Iteraciones")[0]);
+            tenencia = Parser.toInt(cargar(parametros, "Tenencia")[0]);
+            oscilacion = Parser.toFloat(cargar(parametros, "Oscilacion")[0]);
+            estancamiento = Parser.toFloat(cargar(parametros, "Estancamiento")[0]);
 
             for (String dataset : datasets) {
 
@@ -91,23 +98,27 @@ public class Main {
                             Validator.validateSeed(semilla);
                             if(algoritmo_actual.getLog()!=null)
                                 algoritmo_actual.getLog().clear();
-                            solucion = algoritmo_actual.resolver(flujos, distancias, semilla, k, iteraciones);
+
+                            if (algoritmo_actual.usaTenencia())
+                                solucion = algoritmo_actual.resolver(flujos, distancias, semilla, k, iteraciones, tenencia, oscilacion, estancamiento);
+                            else
+                                solucion = algoritmo_actual.resolver(flujos, distancias, semilla, k, iteraciones, 0, 0, 0);
+
                             coste = algoritmo_actual.calcularCoste(flujos, distancias, solucion);
 
                             archivoResultados = new ArchivoResultados(ruta_base, algoritmo_actual.nombreAlgoritmo(), algoritmo_actual.siglasAlgoritmo(), dataset, semilla);
 
                             imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, semilla);
 
-                            if (algoritmo_actual.tieneLogs()){
-
-                                archivoResultados.escribirLogs(coste, algoritmo_actual.getLog());}
+                            if (algoritmo_actual.tieneLogs())
+                                archivoResultados.escribirLogs(coste, algoritmo_actual.getLog());
                             else
                                 archivoResultados.escribir(coste);
 
                         }
 
                     } else {
-                        solucion = algoritmo_actual.resolver(flujos,distancias,null, k, iteraciones);
+                        solucion = algoritmo_actual.resolver(flujos,distancias,null, k, iteraciones, 0, 0,0);
                         coste = algoritmo_actual.calcularCoste(flujos, distancias, solucion);
 
                         archivoResultados = new ArchivoResultados(ruta_base, algoritmo_actual.nombreAlgoritmo(), algoritmo_actual.siglasAlgoritmo(), dataset);

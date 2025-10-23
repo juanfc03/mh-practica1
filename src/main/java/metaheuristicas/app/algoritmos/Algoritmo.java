@@ -7,7 +7,21 @@ public interface Algoritmo {
     String nombreAlgoritmo();
     String siglasAlgoritmo();
 
-    int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones);
+    default boolean requiereSemilla(){
+        return true;
+    }
+
+    default boolean tieneLogs() {
+        return true;
+    }
+
+    default boolean usaTenencia() {
+        return false;
+    }
+
+    List<String> getLog();
+
+    int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones, int tenencia, float oscilacion, float estancamiento);
 
     /**
      * Calcula el coste de una asignación entre flujos y distancias
@@ -66,10 +80,4 @@ public interface Algoritmo {
 
             }
     }
-
-    default boolean requiereSemilla(){
-        return true;
-    }
-    default boolean tieneLogs() { return true;}
-    List<String> getLog();
 }

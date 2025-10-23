@@ -11,7 +11,7 @@ public class GreedyAleatorio implements Algoritmo {
      * @return Array con la permutación de asignaciones inicial.
      */
     @Override
-    public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones) {
+    public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones, int tenencia, float oscilacion, float escalamiento) {
         int tam = flujos.length;
         int[] importancia = new int[tam];
         int[] centralidad = new int[tam];

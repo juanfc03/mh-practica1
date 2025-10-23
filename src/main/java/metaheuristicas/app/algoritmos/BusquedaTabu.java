@@ -11,17 +11,12 @@ public class BusquedaTabu implements Algoritmo{
 
     private final List<String> log = new ArrayList<>();
 
-    //FIXME: Pasarlo al fichero de parametros
-    private static final int TENENCIA_TABU = 3;           // Tenencia tabú
-    private static final double OSCILACION = 0.50;      // Prob. intensificar vs diversificar
-    private static final double ESTANCAMIENTO = 0.05;   // 5% de iteraciones sin mejorar
-
     @Override
-    public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones) {
+    public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones,
+                          int tenencia, float oscilacion, float estancamiento) {
 
         GreedyAleatorio randomGreedy = new GreedyAleatorio();
-        int[] solucionInicial = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones);
-        int[] solucionActual = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones);
+        int[] solucionActual = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones, tenencia, oscilacion, estancamiento);
 
         int nDepartamentos = solucionActual.length;
         int[] marcarNoMirarDLB = new int[nDepartamentos];
@@ -49,7 +44,7 @@ public class BusquedaTabu implements Algoritmo{
 
         // Oscilación estratégica
         int iteracionesSinMejorar = 0;
-        final int umbralEstancamientoIter = Math.max(1, (int) Math.round(ESTANCAMIENTO * iteraciones));
+        final int umbralEstancamientoIter = Math.max(1, (int) Math.round(estancamiento * iteraciones));
         int iteracionesRestantesModoOscilacion = 0;
         boolean oscilandoIntensificar = true;
 
@@ -60,7 +55,7 @@ public class BusquedaTabu implements Algoritmo{
             double mejorPuntaje = Double.POSITIVE_INFINITY;
 
             if (iteracionesRestantesModoOscilacion == 0 && iteracionesSinMejorar >= umbralEstancamientoIter) {
-                oscilandoIntensificar = rnd.nextDouble() < OSCILACION; // 50% por defecto
+                oscilandoIntensificar = rnd.nextDouble() < oscilacion; // 50% por defecto
                 iteracionesRestantesModoOscilacion = umbralEstancamientoIter;
             }
 
@@ -81,7 +76,7 @@ public class BusquedaTabu implements Algoritmo{
                     if (!esMovimientoTabu || superaCriterioAspiracion) {
                         double puntaje = calcScore(delta, solucionActual, frecuenciaLargoPlazo,
                                 dptoA, dptoB, iteracion,
-                                iteracionesRestantesModoOscilacion, oscilandoIntensificar);
+                                iteracionesRestantesModoOscilacion, oscilandoIntensificar, oscilacion);
 
                         existeCandidato = true;
 
@@ -118,7 +113,7 @@ public class BusquedaTabu implements Algoritmo{
 
                         double puntaje = calcScore(delta, solucionActual, frecuenciaLargoPlazo,
                                 dptoA, dptoB, iteracion,
-                                iteracionesRestantesModoOscilacion, oscilandoIntensificar);
+                                iteracionesRestantesModoOscilacion, oscilandoIntensificar, oscilacion);
 
                         if (puntaje < mejorPuntaje || (puntaje == mejorPuntaje && delta < mejorDeltaCosto)) {
                             mejorPuntaje = puntaje;
@@ -139,7 +134,7 @@ public class BusquedaTabu implements Algoritmo{
             costeActual += mejorDeltaCosto;
 
             // Actualizar memorias
-            expiracionTabu[mejorDptoA][mejorDptoB] = iteracion + TENENCIA_TABU + 1;
+            expiracionTabu[mejorDptoA][mejorDptoB] = iteracion + tenencia + 1;
             marcarNoMirarDLB[mejorDptoA] = 0; marcarNoMirarDLB[mejorDptoB] = 0;
 
             frecuenciaLargoPlazo[mejorDptoA][solucionActual[mejorDptoA]-1]++;
@@ -168,22 +163,32 @@ public class BusquedaTabu implements Algoritmo{
 
     private double calcScore(int delta, int[] s, int[][] largoPlazo,
                                     int i, int j, int it,
-                                    int modoOscilacionRestante, boolean modoIntensificar) {
+                                    int modoOscilacionRestante, boolean modoIntensificar, float oscilacion) {
         if (modoOscilacionRestante <= 0) return delta;
         int locI = s[j] - 1;   // posiciones tras el swap hipotético
         int locJ = s[i] - 1;
         int freq = largoPlazo[i][locI] + largoPlazo[j][locJ];
         double freqNorm = freq / (double) (1 + it);
-        return delta + (modoIntensificar ? -OSCILACION : +OSCILACION) * freqNorm;
+        return delta + (modoIntensificar ? -oscilacion : +oscilacion) * freqNorm;
     }
 
     @Override
-    public String nombreAlgoritmo() { return "BusquedaTabu"; }
+    public String nombreAlgoritmo() {
+        return "BusquedaTabu";
+    }
 
     @Override
-    public String siglasAlgoritmo() {return "BT";}
+    public String siglasAlgoritmo() {
+        return "BT";
+    }
 
     @Override
-    public List<String> getLog() { return log; }
+    public List<String> getLog() {
+        return log;
+    }
 
+    @Override
+    public boolean usaTenencia() {
+        return true;
+    }
 }

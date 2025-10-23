@@ -11,10 +11,10 @@ public class BusquedaLocal implements Algoritmo{
     private final List<String> log = new ArrayList<>();
 
     @Override
-    public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones){
+    public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones, int tenencia, float oscilacion, float estancamiento){
 
         GreedyAleatorio randomGreedy = new GreedyAleatorio();
-        int[] solucion_inicial = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones);
+        int[] solucion_inicial = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones, tenencia, oscilacion, estancamiento);
         int costeInicial = calcularCoste(flujos,distancias,solucion_inicial);
         log.add(String.format(
                 "---------------------------------- \n" +
@@ -23,7 +23,7 @@ public class BusquedaLocal implements Algoritmo{
                 Parser.solucionToString(solucion_inicial),
                 costeInicial
         ));
-        int[] solucion = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones);
+        int[] solucion = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones, tenencia, oscilacion, estancamiento);
 
         int n = solucion.length;
         int[] dlb = new int[n];
