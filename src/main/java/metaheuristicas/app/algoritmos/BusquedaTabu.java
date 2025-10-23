@@ -23,18 +23,18 @@ public class BusquedaTabu implements Algoritmo{
         int[] solucionInicial = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones);
         int[] solucionActual = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones);
 
-        int nUnidades = solucionActual.length;
-        int[] marcarNoMirarDLB = new int[nUnidades];
+        int nDepartamentos = solucionActual.length;
+        int[] marcarNoMirarDLB = new int[nDepartamentos];
         int costeActual = calcularCoste(flujos, distancias, solucionActual);
         int[] mejorSolucion = solucionActual.clone();
         int costeMejorSolucion = costeActual;
 
         // Lista tabú como matriz de expiración para pares (i,j) con i<j
-        int[][] expiracionTabu = new int[nUnidades][nUnidades];
+        int[][] expiracionTabu = new int[nDepartamentos][nDepartamentos];
 
-        // Memoria a largo plazo: frecuencia (unidad u -> localización l)
-        int[][] frecuenciaLargoPlazo = new int[nUnidades][nUnidades];
-        for (int u = 0; u < nUnidades; u++) {
+        // Memoria a largo plazo: frecuencia (departamento u -> localización l)
+        int[][] frecuenciaLargoPlazo = new int[nDepartamentos][nDepartamentos];
+        for (int u = 0; u < nDepartamentos; u++) {
             int loc = solucionActual[u] - 1;
             frecuenciaLargoPlazo[u][loc]++;
         }
@@ -55,7 +55,7 @@ public class BusquedaTabu implements Algoritmo{
 
         for (int iteracion = 0; iteracion < iteraciones; iteracion++) {
 
-            int mejorUnidadA = -1, mejorUnidadB = -1;
+            int mejorDptoA = -1, mejorDptoB = -1;
             int mejorDeltaCosto = Integer.MAX_VALUE;
             double mejorPuntaje = Double.POSITIVE_INFINITY;
 
@@ -65,85 +65,85 @@ public class BusquedaTabu implements Algoritmo{
             }
 
             boolean existeCandidato = false;
-            for (int unidadA = 0; unidadA < nUnidades; unidadA++) {
-                if (marcarNoMirarDLB[unidadA] == 1) continue;
+            for (int dptoA = 0; dptoA < nDepartamentos; dptoA++) {
+                if (marcarNoMirarDLB[dptoA] == 1) continue;
 
-                int mejorBparaUnidadA = -1;
-                int mejorDeltaParaUnidadA = Integer.MAX_VALUE;
-                double mejorPuntajeParaUnidadA = Double.POSITIVE_INFINITY;
+                int mejorBparaDptoA = -1;
+                int mejorDeltaParaDptoA = Integer.MAX_VALUE;
+                double mejorPuntajeParaDptoA = Double.POSITIVE_INFINITY;
 
-                for (int unidadB = unidadA + 1; unidadB < nUnidades; unidadB++) {
+                for (int dptoB = dptoA + 1; dptoB < nDepartamentos; dptoB++) {
 
-                    int delta = deltaSwap(flujos, distancias, solucionActual, unidadA, unidadB);
-                    boolean esMovimientoTabu = expiracionTabu[unidadA][unidadB] > iteracion;
+                    int delta = deltaSwap(flujos, distancias, solucionActual, dptoA, dptoB);
+                    boolean esMovimientoTabu = expiracionTabu[dptoA][dptoB] > iteracion;
                     boolean superaCriterioAspiracion = esMovimientoTabu && (costeActual + delta < costeMejorSolucion);
 
                     if (!esMovimientoTabu || superaCriterioAspiracion) {
                         double puntaje = calcScore(delta, solucionActual, frecuenciaLargoPlazo,
-                                unidadA, unidadB, iteracion,
+                                dptoA, dptoB, iteracion,
                                 iteracionesRestantesModoOscilacion, oscilandoIntensificar);
 
                         existeCandidato = true;
 
-                        if (puntaje < mejorPuntajeParaUnidadA || (puntaje == mejorPuntajeParaUnidadA && delta < mejorDeltaParaUnidadA)) {
-                            mejorPuntajeParaUnidadA = puntaje;
-                            mejorDeltaParaUnidadA = delta;
-                            mejorBparaUnidadA = unidadB;
+                        if (puntaje < mejorPuntajeParaDptoA || (puntaje == mejorPuntajeParaDptoA && delta < mejorDeltaParaDptoA)) {
+                            mejorPuntajeParaDptoA = puntaje;
+                            mejorDeltaParaDptoA = delta;
+                            mejorBparaDptoA = dptoB;
                         }
                     }
                 }
 
-                if (mejorBparaUnidadA != -1) {
-                    if (mejorPuntajeParaUnidadA < mejorPuntaje || (mejorPuntajeParaUnidadA == mejorPuntaje && mejorDeltaParaUnidadA < mejorDeltaCosto)) {
-                        mejorPuntaje = mejorPuntajeParaUnidadA;
-                        mejorDeltaCosto = mejorDeltaParaUnidadA;
-                        mejorUnidadA = unidadA;
-                        mejorUnidadB = mejorBparaUnidadA;
+                if (mejorBparaDptoA != -1) {
+                    if (mejorPuntajeParaDptoA < mejorPuntaje || (mejorPuntajeParaDptoA == mejorPuntaje && mejorDeltaParaDptoA < mejorDeltaCosto)) {
+                        mejorPuntaje = mejorPuntajeParaDptoA;
+                        mejorDeltaCosto = mejorDeltaParaDptoA;
+                        mejorDptoA = dptoA;
+                        mejorDptoB = mejorBparaDptoA;
                     }
                 } else {
-                    marcarNoMirarDLB[unidadA] = 1;
+                    marcarNoMirarDLB[dptoA] = 1;
                 }
             }
 
             if (!existeCandidato || todosDLBActivados(marcarNoMirarDLB)) {
-                mejorUnidadA = -1; mejorUnidadB = -1; mejorDeltaCosto = Integer.MAX_VALUE; mejorPuntaje = Double.POSITIVE_INFINITY;
+                mejorDptoA = -1; mejorDptoB = -1; mejorDeltaCosto = Integer.MAX_VALUE; mejorPuntaje = Double.POSITIVE_INFINITY;
 
-                for (int unidadA = 0; unidadA < nUnidades; unidadA++) {
-                    for (int unidadB = unidadA + 1; unidadB < nUnidades; unidadB++) {
-                        int delta = deltaSwap(flujos, distancias, solucionActual, unidadA, unidadB);
+                for (int dptoA = 0; dptoA < nDepartamentos; dptoA++) {
+                    for (int dptoB = dptoA + 1; dptoB < nDepartamentos; dptoB++) {
+                        int delta = deltaSwap(flujos, distancias, solucionActual, dptoA, dptoB);
 
-                        boolean esMovimientoTabu = expiracionTabu[unidadA][unidadB] > iteracion;
+                        boolean esMovimientoTabu = expiracionTabu[dptoA][dptoB] > iteracion;
                         boolean superaCriterioAspiracion = esMovimientoTabu && (costeActual + delta < costeMejorSolucion);
                         if (esMovimientoTabu && !superaCriterioAspiracion) continue;
 
                         double puntaje = calcScore(delta, solucionActual, frecuenciaLargoPlazo,
-                                unidadA, unidadB, iteracion,
+                                dptoA, dptoB, iteracion,
                                 iteracionesRestantesModoOscilacion, oscilandoIntensificar);
 
                         if (puntaje < mejorPuntaje || (puntaje == mejorPuntaje && delta < mejorDeltaCosto)) {
                             mejorPuntaje = puntaje;
                             mejorDeltaCosto = delta;
-                            mejorUnidadA = unidadA;
-                            mejorUnidadB = unidadB;
+                            mejorDptoA = dptoA;
+                            mejorDptoB = dptoB;
                         }
                     }
                 }
 
-                if (mejorUnidadA == -1) break;
+                if (mejorDptoA == -1) break;
                 // reset DLB
                 Arrays.fill(marcarNoMirarDLB, 0);
             }
 
             // Aplicar movimiento
-            Swapper.intercambia(solucionActual, mejorUnidadA, mejorUnidadB);
+            Swapper.intercambia(solucionActual, mejorDptoA, mejorDptoB);
             costeActual += mejorDeltaCosto;
 
             // Actualizar memorias
-            expiracionTabu[mejorUnidadA][mejorUnidadB] = iteracion + TENENCIA_TABU + 1;
-            marcarNoMirarDLB[mejorUnidadA] = 0; marcarNoMirarDLB[mejorUnidadB] = 0;
+            expiracionTabu[mejorDptoA][mejorDptoB] = iteracion + TENENCIA_TABU + 1;
+            marcarNoMirarDLB[mejorDptoA] = 0; marcarNoMirarDLB[mejorDptoB] = 0;
 
-            frecuenciaLargoPlazo[mejorUnidadA][solucionActual[mejorUnidadA]-1]++;
-            frecuenciaLargoPlazo[mejorUnidadB][solucionActual[mejorUnidadB]-1]++;
+            frecuenciaLargoPlazo[mejorDptoA][solucionActual[mejorDptoA]-1]++;
+            frecuenciaLargoPlazo[mejorDptoB][solucionActual[mejorDptoB]-1]++;
 
             if (costeActual < costeMejorSolucion) {
                 costeMejorSolucion = costeActual;
