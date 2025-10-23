@@ -66,15 +66,11 @@ public class BusquedaLocal implements Algoritmo{
 
                 if (!mejoraI) {
                     dlb[i] = 1;
-                }
-
-                if (!hubo_mejora) {
                     log.add(String.format(
                             "Iteración %d: No hubo mejora",
                             it
                     ));
                 }
-
                 else break;
             }
         }

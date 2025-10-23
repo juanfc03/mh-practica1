@@ -89,7 +89,8 @@ public class Main {
                     if(algoritmo_actual.requiereSemilla()) {
                         for (String semilla : semillas) {
                             Validator.validateSeed(semilla);
-
+                            if(algoritmo_actual.getLog()!=null)
+                                algoritmo_actual.getLog().clear();
                             solucion = algoritmo_actual.resolver(flujos, distancias, semilla, k, iteraciones);
                             coste = algoritmo_actual.calcularCoste(flujos, distancias, solucion);
 
@@ -97,8 +98,9 @@ public class Main {
 
                             imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, semilla);
 
-                            if (algoritmo_actual.tieneLogs())
-                                archivoResultados.escribirLogs(coste, algoritmo_actual.getLog());
+                            if (algoritmo_actual.tieneLogs()){
+
+                                archivoResultados.escribirLogs(coste, algoritmo_actual.getLog());}
                             else
                                 archivoResultados.escribir(coste);
 
