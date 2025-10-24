@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class BusquedaTabu implements Algoritmo{
+public class AlgBTC4G2 implements Algoritmo{
 
     private final List<String> log = new ArrayList<>();
 
@@ -15,7 +15,7 @@ public class BusquedaTabu implements Algoritmo{
     public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones,
                           int tenencia, float oscilacion, float estancamiento) {
 
-        GreedyAleatorio randomGreedy = new GreedyAleatorio();
+        AlgGAC4G2 randomGreedy = new AlgGAC4G2();
         int[] solucionActual = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones, tenencia, oscilacion, estancamiento);
 
         int nDepartamentos = solucionActual.length;

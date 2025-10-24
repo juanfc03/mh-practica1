@@ -6,10 +6,10 @@ public interface AlgoritmoFactory {
         if (nombre == null || nombre.isBlank()) throw new IllegalArgumentException("El nombre del algoritmo no puede estar vacío");
 
         return switch (nombre.trim().toUpperCase()) {
-            case "GREEDY" -> new Greedy();
-            case "GREEDYALEATORIO"  -> new GreedyAleatorio();
-            case "BUSQUEDALOCAL" -> new BusquedaLocal();
-            case "BUSQUEDATABU" -> new BusquedaTabu();
+            case "GREEDY" -> new AlgGEC4G2();
+            case "GREEDYALEATORIO"  -> new AlgGAC4G2();
+            case "BUSQUEDALOCAL" -> new AlgBLC4G2();
+            case "BUSQUEDATABU" -> new AlgBTC4G2();
             default -> throw new IllegalArgumentException("Algoritmo no existe" + nombre);
         };
 

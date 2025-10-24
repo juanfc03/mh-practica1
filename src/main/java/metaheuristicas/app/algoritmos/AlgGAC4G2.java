@@ -5,7 +5,7 @@ import metaheuristicas.app.utils.Sorter;
 
 import java.util.*;
 
-public class GreedyAleatorio implements Algoritmo {
+public class AlgGAC4G2 implements Algoritmo {
     /**
      * Asigna el departamento más importante a la localización más central, el siguiente al segundo, etc; de forma aleatoria.
      * @return Array con la permutación de asignaciones inicial.

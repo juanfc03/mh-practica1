@@ -9,6 +9,7 @@ import metaheuristicas.app.utils.Parser;
 import metaheuristicas.app.utils.Validator;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 
 public class Main {
@@ -30,14 +31,14 @@ public class Main {
                             + "\n Solucion: ");
 
 
-        //for (int i = 0; i < solucion.length; i++) System.out.println("Departamento " + (i + 1) + " -> Localización " + solucion[i]);
+        System.out.println(Arrays.toString(solucion));
+
     }
 
     /**
      * En la Terminal, escribir: java -cp target/classes metaheuristicas.app.Main parametros.txt
      */
     public static void main(String[] args) {
-
 
         int k;
         int iteraciones;

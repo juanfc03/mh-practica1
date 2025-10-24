@@ -6,14 +6,14 @@ import metaheuristicas.app.utils.Swapper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusquedaLocal implements Algoritmo{
+public class AlgBLC4G2 implements Algoritmo{
 
     private final List<String> log = new ArrayList<>();
 
     @Override
     public int[] resolver(int[][] flujos, int[][] distancias, String semilla, int k, int iteraciones, int tenencia, float oscilacion, float estancamiento){
 
-        GreedyAleatorio randomGreedy = new GreedyAleatorio();
+        AlgGAC4G2 randomGreedy = new AlgGAC4G2();
         int[] solucion_inicial = randomGreedy.resolver(flujos, distancias, semilla, k, iteraciones, tenencia, oscilacion, estancamiento);
         int costeInicial = calcularCoste(flujos,distancias,solucion_inicial);
         log.add(String.format(

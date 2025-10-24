@@ -3,7 +3,7 @@ import metaheuristicas.app.utils.Sorter;
 
 import java.util.*;
 
-public class Greedy implements Algoritmo{
+public class AlgGEC4G2 implements Algoritmo{
     /**
      * Asigna el departamento más importante a la localización más central, el siguiente al segundo, etc.
      * @return Array con la permutación de asignaciones inicial.
