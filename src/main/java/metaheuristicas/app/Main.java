@@ -19,7 +19,7 @@ public class Main {
     }
 
     private static void imprimirSolucion(int[] solucion, Algoritmo algoritmo, String dataset,
-                                         int[][] flujos, int[][] distancias, String semilla){
+                                         int[][] flujos, int[][] distancias, String semilla, long endtime){
         semilla = semilla == null ? "No usa semilla" : semilla;
 
         System.out.println("\n<--------------------------------------------------------------------------------->"
@@ -27,6 +27,7 @@ public class Main {
                             + "\n Dataset: " + dataset
                             + "\n Semilla: " + semilla
                             + "\n Coste: " + algoritmo.calcularCoste(flujos, distancias, solucion)
+                            + "\n Tiempo de ejecución: " + endtime
                             + "\n<--------------------------------------------------------------------------------->"
                             + "\n Solucion: ");
 
@@ -92,7 +93,8 @@ public class Main {
                 distancias = datos.getDistancias();
 
                 for (String algoritmo : algoritmos) {
-
+                    long startTime = System.currentTimeMillis();
+                    long endTime;
                     Algoritmo algoritmo_actual = AlgoritmoFactory.nuevoAlgoritmo(algoritmo);
                     if(algoritmo_actual.requiereSemilla()) {
                         for (String semilla : semillas) {
@@ -104,13 +106,12 @@ public class Main {
                                 solucion = algoritmo_actual.resolver(flujos, distancias, semilla, k, iteraciones, tenencia, oscilacion, estancamiento);
                             else
                                 solucion = algoritmo_actual.resolver(flujos, distancias, semilla, k, iteraciones, 0, 0, 0);
-
+                            endTime = System.currentTimeMillis() - startTime;
                             coste = algoritmo_actual.calcularCoste(flujos, distancias, solucion);
 
                             archivoResultados = new ArchivoResultados(ruta_base, algoritmo_actual.nombreAlgoritmo(), algoritmo_actual.siglasAlgoritmo(), dataset, semilla);
 
-                            imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, semilla);
-
+                            imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias, semilla, endTime);
                             if (algoritmo_actual.tieneLogs())
                                 archivoResultados.escribirLogs(coste, algoritmo_actual.getLog());
                             else
@@ -120,14 +121,14 @@ public class Main {
 
                     } else {
                         solucion = algoritmo_actual.resolver(flujos,distancias,null, k, iteraciones, 0, 0,0);
+                        endTime = System.currentTimeMillis() - startTime;
                         coste = algoritmo_actual.calcularCoste(flujos, distancias, solucion);
 
                         archivoResultados = new ArchivoResultados(ruta_base, algoritmo_actual.nombreAlgoritmo(), algoritmo_actual.siglasAlgoritmo(), dataset);
 
-                        imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias,null);
+                        imprimirSolucion(solucion, algoritmo_actual, dataset, flujos, distancias,null, endTime);
                         archivoResultados.escribir(coste);
                     }
-
                 }
 
             }
